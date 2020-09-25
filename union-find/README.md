@@ -29,13 +29,13 @@
 ```cpp
 #include <stdlib.h>
 
-typedef struct _UnionFind {
+typedef struct UnionFind {
     int size;
     int elements[0];
-} UnionFind;
+} UF;
 
-UnionFind *initUnionFind(int size) {
-    UnionFind *u = (UnionFind *)malloc(sizeof(UnionFind) + size * sizeof(int));
+UF *initUnionFind(int size) {
+    UF *u = (UF *)malloc(sizeof(UF) + size * sizeof(int));
 
     u->size = size;
 
@@ -50,17 +50,17 @@ UnionFind *initUnionFind(int size) {
 所需要实现的 API 其实就两个：判断两个节点的连通性，以及连接两个节点：
 
 ```cpp
-int get_node(UnionFind *u, int index) {
+int find(UF *u, int index) {
     return u->elements[index];
 }
 
-int is_connected(UnionFind *u, int src, int dst) {
-    return get_node(u, src) == get_node(u, dst);
+int is_connected(UF *u, int src, int dst) {
+    return find(u, src) == find(u, dst);
 }
 
-void union_node(UnionFind *u, int src, int dst) {
-    int src_value = get_node(u, src);
-    int dst_value = get_node(u, dst);
+void union_node(UF *u, int src, int dst) {
+    int src_value = find(u, src);
+    int dst_value = find(u, dst);
 
     if (src_value == dst_value) return;
 
@@ -98,7 +98,7 @@ Quick-Union 的核心思想就是利用数组构建出一颗树，非常类似�
 
 ```cpp
 // 当 elements[index] = index 时即达到某个节点的根节点
-int get_root(UnionFind *u, int index) {
+int find(UF *u, int index) {
     while (u->elements[index] != index) {
         index = u->elements[index];
     }
@@ -106,13 +106,13 @@ int get_root(UnionFind *u, int index) {
 }
 
 // 判断连通性，只要根节点相同，它们就是连通的
-int is_connected(UnionFind *u, int src, int dst) {
-    return get_root(u, src) == get_root(u, dst);
+int is_connected(UF *u, int src, int dst) {
+    return find(u, src) == find(u, dst);
 }
 
-void union_node(UnionFind *u, int src, int dst) {
-    int src_root = get_root(u, src);
-    int dst_root = get_root(u, dst);
+void union_node(UF *u, int src, int dst) {
+    int src_root = find(u, src);
+    int dst_root = find(u, dst);
 
     if (src_root == dst_root) return ;
 
@@ -168,9 +168,6 @@ public class UF:
 ```
 
 
-
-
-
 #### 2.2 优化 Quick-Union：路径压缩
 
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/union-find/normal.png)
@@ -184,7 +181,7 @@ public class UF:
 路径压缩的这个操作可以在 `get_root` 函数中进行，在寻找根节点时顺带着把路径压缩掉：
 
 ```cpp
-int get_root(UnionFind *u, int index) {
+int find(UF *u, int index) {
     while (u->elements[index] != index) {
     
         // 路径压缩“一格”
