@@ -1,20 +1,18 @@
 #include <stdlib.h>
 
-typedef struct _UnionFind {
+typedef struct UnionFind {
     int size;
     int elements[0];
-    int rank[0];
-} UnionFind;
+} UF;
 
 
-UnionFind *initUnionFind(int size) {
-    UnionFind *u = (UnionFind *)malloc(sizeof(UnionFind) + size * sizeof(int) * 2);
+UF *initUnionFind(int size) {
+    UF *u = (UF *)malloc(sizeof(UF) + size * sizeof(int));
 
     u->size = size;
 
     for (int i = 0; i < size; i++) {
         u->elements[i] = i;
-        u->rank[i] = 1;
     }
 
     return u;

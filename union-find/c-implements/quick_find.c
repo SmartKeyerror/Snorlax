@@ -2,17 +2,17 @@
 
 #include "union_find.h"
 
-int get_node(UnionFind *u, int index) {
+int find(UF *u, int index) {
     return u->elements[index];
 }
 
-int is_connected(UnionFind *u, int src, int dst) {
-    return get_node(u, src) == get_node(u, dst);
+int is_connected(UF *u, int src, int dst) {
+    return find(u, src) == find(u, dst);
 }
 
-void union_node(UnionFind *u, int src, int dst) {
-    int src_value = get_node(u, src);
-    int dst_value = get_node(u, dst);
+void union_node(UF *u, int src, int dst) {
+    int src_value = find(u, src);
+    int dst_value = find(u, dst);
 
     if (src_value == dst_value) return;
 
@@ -24,7 +24,7 @@ void union_node(UnionFind *u, int src, int dst) {
 
 
 int main() {
-    UnionFind *u = initUnionFind(10);
+    UF *u = initUnionFind(10);
 
     union_node(u, 5, 6);
     union_node(u, 2, 5);

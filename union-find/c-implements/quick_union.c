@@ -2,7 +2,7 @@
 
 #include "union_find.h"
 
-int get_root(UnionFind *u, int index) {
+int find(UF *u, int index) {
     while (u->elements[index] != index) {
 
         // 路径压缩
@@ -13,13 +13,13 @@ int get_root(UnionFind *u, int index) {
     return u->elements[index];
 }
 
-int is_connected(UnionFind *u, int src, int dst) {
-    return get_root(u, src) == get_root(u, dst);
+int is_connected(UF *u, int src, int dst) {
+    return find(u, src) == find(u, dst);
 }
 
-void union_node(UnionFind *u, int src, int dst) {
-    int src_root = get_root(u, src);
-    int dst_root = get_root(u, dst);
+void union_node(UF *u, int src, int dst) {
+    int src_root = find(u, src);
+    int dst_root = find(u, dst);
 
     if (src_root == dst_root) return ;
 
@@ -27,7 +27,7 @@ void union_node(UnionFind *u, int src, int dst) {
 }
 
 int main() {
-    UnionFind *u = initUnionFind(10);
+    UF *u = initUnionFind(10);
 
     union_node(u, 5, 6);
     union_node(u, 2, 5);
