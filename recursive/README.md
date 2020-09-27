@@ -142,3 +142,53 @@ int maxDepth(TreeNode *root) {
 ```
 
 在编写递归函数时，千万不要陷入到递归函数的具体调用过程中。我们只需要牢记当前函数的具体功能语义，再结合递归终止条件和一般通用解即可得出正确的答案。**递归是一种宏观的、自上而下的思考方式**。
+
+#### 3.4 使用递归计算 $x^n$
+
+$x^n$ 其实就是 $n$ 个 $x$ 相乘，根据指数运算公式可得(分治思想)：
+
+$$ x^n = (x^{\frac{n}{2}})^2 $$
+
+由此，我们就得出了问题的通用解：
+
+$$ f(n) = (f({\frac{n}{2}}))^2 $$
+
+但是对于程序而言，我们更愿意去计算整数幂，而不是小数幂，所以需要对 $n$ 的奇偶性进行区分。
+
+$$ f(n)=\left\{
+\begin{aligned}
+& (x^{n / 2})^2 \ \ (n为偶数) \\
+& x * (x^{n / 2})^2  \ \ (n为奇数)\\
+\end{aligned}
+\right.
+$$
+
+```cpp
+#include <math.h>
+
+double exponentiation(double x, int n);
+
+double my_pow(double x, int n) {
+    // 当 n 为负数时，对结果取倒数即可
+    if (n < 0)
+        return 1 / exponentiation(x, n);
+    return exponentiation(x, n);
+}
+
+double exponentiation(double x, int n) {
+    
+    if (n == 0)
+        return 1;
+    
+    if (n == 1) 
+        return x;
+    
+    double res = exponentiation(x, floor(n  / 2));
+
+    if (n % 2 == 0) {
+        return res * res;
+    } else {
+        return res * res * x;
+    }
+}
+```
