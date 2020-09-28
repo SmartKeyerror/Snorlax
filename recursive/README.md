@@ -65,7 +65,7 @@ int jump(int n) {
 
 反转一个链表算是比较经典的抽象递归问题，现在来看下问题：
 
-> 给定一个单向链表，原地反转该链表，如原链表为 1 —> 2 -> 3，反转后链表为 3 -> 2 -> 1。
+> 给定一个单向链表，原地反转该链表，如原链表为 1 -> 2 -> 3，反转后链表为 3 -> 2 -> 1。
 
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/recursive/LinkedList.png)
 
@@ -74,7 +74,7 @@ int jump(int n) {
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/recursive/Reverse-LinkedList.png)
 
 ```cpp
-Node node = head.next;
+Node *node = head.next;
 node.next = head;
 head.next = NULL;
 ```
@@ -92,11 +92,14 @@ Node *reverse(Node *head) {
 
     if (head == NULL || head->next == NULL)
         // 当递归到链表最后一个节点时，该节点其实就是新的链表头
+        // 对于递归过程中的每一个栈帧而言，直接将其返回就可得到新链表头
         return head;
     
     // 递归到底后将返回新的链表头
     Node *newHead = reverse(head->next);
 
+    // 在当前函数中，`head` 其实就是链表中一个一个的节点
+    // 此时问题将变为“如何反转单向链表的两个节点”
     Node *node = head->next;
     node->next = head;
     head->next = NULL;
