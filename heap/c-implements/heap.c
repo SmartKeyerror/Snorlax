@@ -4,6 +4,35 @@
 #include <string.h>
 
 
+int get_left(int index) {
+    return 2 * index + 1;
+}
+
+int get_right(int index) {
+    return 2 * index + 2;
+}
+
+int get_parent(int index) {
+    return (index - 1) / 2;
+}
+
+void swap(Heap *heap, int src, int dst) {
+    int temp = heap->elements[src];
+    heap->elements[src] = heap->elements[dst];
+    heap->elements[dst] = temp;
+}
+
+
+int is_empty(Heap *heap) {
+    return heap->size == 0;
+}
+
+
+int is_full(Heap *heap) {
+    return heap->size == heap->capacity;
+}
+
+
 static void shift_up(Heap *heap, int index) {
     while (index > 0 && heap->elements[index] > heap->elements[get_parent(index)]) {
         swap(heap, index, get_parent(index));
@@ -14,7 +43,7 @@ static void shift_up(Heap *heap, int index) {
 
 /* 向堆中添加元素 */
 int add(Heap *heap, int value) {
-    if (heap->size == heap->capacity)
+    if (is_full(heap))
         return -1;
     
     heap->elements[heap->size] = value;
@@ -50,7 +79,7 @@ static void shift_down(Heap *heap, int index) {
 
 /* 弹出堆顶元素 */
 int pop(Heap *heap, int *max_value) {
-    if (heap->size == 0) 
+    if (is_empty(heap)) 
         return -1;
     
     *max_value = heap->elements[0];
@@ -119,5 +148,3 @@ int main() {
         printf("%d, ", max);
     }
 }
-
-
