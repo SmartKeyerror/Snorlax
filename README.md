@@ -8,3 +8,4 @@
 
 - [判断连通性的利器——并查集](https://github.com/SmartKeyerror/Snorlax/tree/master/union-find)
 - [递归——俄罗斯套娃](https://github.com/SmartKeyerror/Snorlax/tree/master/recursive)
+- [山顶的石头最有价值——堆](https://github.com/SmartKeyerror/Snorlax/tree/master/heap)
