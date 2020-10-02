@@ -146,3 +146,17 @@ Heap *heapify(int elements[], int size, int capacity) {
     return heap;
 }
 ```
+
+### 2. 堆的应用
+
+#### 2.1 计算百分位数
+
+百分位数是衡量一组数据一个非常重要的指标，对于 Web Server 的响应时间而言，第 95 个百分位数、第 99 个百分位数能直接反映出服务的整体时延。
+
+百分位数通常使用 `P50`、`P95`、`P99` 等方式表示，其中 `P50` 其实就是中位数。`P99` 表示在当前样本数据中，有 99% 的数据大于等于（或小于等于）该数值，有 1% 的数据大于等于（或小于等于）该数值。
+
+![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/heap/percentile.png)
+
+对于静态数据而言，只需要将数据排序，而后取出位置在 50%、95%、99% 的数据即可。但是对于动态数据，或者说流式数据而言，使用数组排序的代价稍有昂贵，所以，此时通常都会使用堆的方式实现：对于计算 P50 而言，需要维护两个堆，一个大堆，一个小堆，并保证两个堆中的数据量相差不超过 1。如此一来，大堆顶和小堆顶的元素和再取平均数，结果就是我们需要的百分位数。
+
+![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/heap/cal-percentile.png)
