@@ -34,7 +34,7 @@ int is_full(Heap *heap) {
 
 
 static void shift_up(Heap *heap, int index) {
-    while (index > 0 && heap->elements[index] > heap->elements[get_parent(index)]) {
+    while (index > 0 && heap->operate(heap->elements[index], heap->elements[get_parent(index)])) {
         swap(heap, index, get_parent(index));
         index = get_parent(index);
     }
@@ -59,15 +59,15 @@ static void shift_down(Heap *heap, int index) {
     /* 当元素没有左子节点或者是当前节点大于左右子节点时，下沉结束 */
     while (get_left(index) < heap->size ) {
 
-        /* 暂定左子节点为值最大的节点 */
+        /* 暂定左子节点为值最大(或最小)的节点 */
         int max = get_left(index);
 
-        /* 当存在右子节点并且其值大于左子节点时，更新最大值索引为右子节点*/
-        if (max + 1 < heap->size && heap->elements[max] < heap->elements[max + 1])
+        /* 当存在右子节点并且其值大于(或小于)左子节点时，更新最大值(最小值)索引为右子节点*/
+        if (max + 1 < heap->size && heap->operate(heap->elements[max + 1], heap->elements[max]))
             max++;
         
-        /* 左右子节点中的最大节点值仍比当前节点值小的话，下沉结束 */
-        if (heap->elements[max] < heap->elements[index])
+        /* 左右子节点中的最值仍比当前节点值小(大)的话，下沉结束 */
+        if (heap->operate(heap->elements[index], heap->elements[max]))
             break;
         
         swap(heap, max, index);
@@ -95,8 +95,8 @@ int pop(Heap *heap, int *max_value) {
 
 
 /* 使用已有数组快速建堆 */
-Heap *heapify(int elements[], int size, int capacity) {
-    Heap *heap = new_heap(capacity);
+Heap *heapify(int elements[], int size, int capacity, int heap_type) {
+    Heap *heap = new_heap(capacity, heap_type);
     heap->size = size;
     heap->capacity = capacity;
     
@@ -112,7 +112,7 @@ Heap *heapify(int elements[], int size, int capacity) {
 
 
 int main() {
-    Heap *heap = new_heap(10);
+    Heap *heap = new_heap(10, MAX_HEAP);
 
     add(heap, 10);
     add(heap, 9);
@@ -141,10 +141,22 @@ int main() {
     printf("\n");
 
     int elements[] = {10, 9, 18, 22, 29, 80, 108, 500, 995, 2322};
-    Heap *new_heap = heapify(elements, sizeof(elements)/sizeof(int), sizeof(elements)/sizeof(int) * 2);
+    Heap *new_heap = heapify(elements, sizeof(elements)/sizeof(int), sizeof(elements)/sizeof(int) * 2, MAX_HEAP);
 
     for (int i = 0; i < size; i++) {
         pop(new_heap, &max);
         printf("%d, ", max);
+    }
+    printf("\n");
+
+
+    int min;
+
+    int new_elements[] = {10, 9, 18, 22, 29, 80, 108, 500, 995, 2322};
+    Heap *min_heap = heapify(new_elements, sizeof(new_elements)/sizeof(int), sizeof(new_elements)/sizeof(int) * 2, MIN_HEAP);
+
+    for (int i = 0; i < size; i++) {
+        pop(min_heap, &min);
+        printf("%d, ", min);
     }
 }
