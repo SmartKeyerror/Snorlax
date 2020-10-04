@@ -56,4 +56,4 @@ extern int is_empty(Heap *heap);
 
 extern int is_full(Heap *heap);
 
-extern int get_top(Heap *Heap);
+extern int get_top(Heap *Heap, int *top);

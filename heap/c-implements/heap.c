@@ -33,6 +33,16 @@ int is_full(Heap *heap) {
 }
 
 
+int get_top(Heap *heap, int *top) {
+    if (is_empty(heap))
+        return -1;
+    
+    *top = heap->elements[0];
+
+    return 0;
+}
+
+
 static void shift_up(Heap *heap, int index) {
     while (index > 0 && heap->operate(heap->elements[index], heap->elements[get_parent(index)])) {
         swap(heap, index, get_parent(index));
