@@ -33,23 +33,54 @@ int get_parent(int index) {
 虽然堆可以直接使用数组进行表示，但是由于元素的动态添加特性，以及 C 语言的语言特性，不得不使用结构体+柔型数组的方式实现：
 
 ```cpp
+#include <stdlib.h>
+
 typedef struct Heap {
-    int size;           /* 当前数组已有元素数量 */
-    int capacity;       /* 数组容量 */
-    int elements[0];    /* 柔性数组 */
+    int size;                               /* 当前数组已有元素数量 */
+    int capacity;                           /* 数组容量 */
+    int (* operate)(int left, int right);   /* 操作符函数指针，用于构建不同类型的堆(大堆 or 小堆) */
+    int elements[0];                        /* 元素数组 */
 } Heap;
 
+enum HeapType {
+    MAX_HEAP = 1,
+    MIN_HEAP = 2
+};
 
-Heap *new_heap(int capacity) {
+
+int max_heap_operate(int left, int right) {
+    return left > right;
+}
+
+int min_heap_operate(int left, int right) {
+    return left < right;
+}
+
+
+/* 一个简单的工厂函数 */
+Heap *new_heap(int capacity, int heap_type) {
     Heap *heap = (Heap *)malloc(sizeof(Heap) + sizeof(int) * capacity);
 
     heap->size = 0;
     heap->capacity = capacity;
+
+    switch (heap_type) {
+    case MAX_HEAP:
+        heap->operate = max_heap_operate;
+        break;
+    case MIN_HEAP:
+        heap->operate = min_heap_operate;
+        break;
+    default:
+        free(heap);
+        return NULL;
+    }
     
     return heap;
 }
-
 ```
+
+`operate` 函数指针以及 `HeapType` 枚举类型用于实现大小堆的创建，C 语言中实现“鸭子类型”比其它语言更为简单，
 
 
 #### 1.1 元素的插入
@@ -60,7 +91,7 @@ Heap *new_heap(int capacity) {
 
 ```cpp
 static void shift_up(Heap *heap, int index) {
-    while (index > 0 && heap->elements[index] > heap->elements[get_parent(index)]) {
+    while (index > 0 && heap->operate(heap->elements[index], heap->elements[get_parent(index)])) {
         swap(heap, index, get_parent(index));
         index = get_parent(index);
     }
@@ -92,15 +123,15 @@ static void shift_down(Heap *heap, int index) {
     /* 当元素没有左子节点或者是当前节点大于左右子节点时，下沉结束 */
     while (get_left(index) < heap->size ) {
 
-        /* 暂定左子节点为值最大的节点 */
+        /* 暂定左子节点为值最大(或最小)的节点 */
         int max = get_left(index);
 
-        /* 当存在右子节点并且其值大于左子节点时，更新最大值索引为右子节点*/
-        if (max + 1 < heap->size && heap->elements[max] < heap->elements[max + 1])
+        /* 当存在右子节点并且其值大于(或小于)左子节点时，更新最大值(最小值)索引为右子节点*/
+        if (max + 1 < heap->size && heap->operate(heap->elements[max + 1], heap->elements[max]))
             max++;
         
-        /* 左右子节点中的最大节点值仍比当前节点值小的话，下沉结束 */
-        if (heap->elements[max] < heap->elements[index])
+        /* 左右子节点中的最值仍比当前节点值小(大)的话，下沉结束 */
+        if (heap->operate(heap->elements[index], heap->elements[max]))
             break;
         
         swap(heap, max, index);
@@ -131,8 +162,8 @@ int pop(Heap *heap, int *max_value) {
 
 ```cpp
 /* 使用已有数组快速建堆 */
-Heap *heapify(int elements[], int size, int capacity) {
-    Heap *heap = new_heap(capacity);
+Heap *heapify(int elements[], int size, int capacity, int heap_type) {
+    Heap *heap = new_heap(capacity, heap_type);
     heap->size = size;
     heap->capacity = capacity;
     
@@ -157,6 +188,8 @@ Heap *heapify(int elements[], int size, int capacity) {
 
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/heap/percentile.png)
 
-对于静态数据而言，只需要将数据排序，而后取出位置在 50%、95%、99% 的数据即可。但是对于动态数据，或者说流式数据而言，使用数组排序的代价稍有昂贵，所以，此时通常都会使用堆的方式实现：对于计算 P50 而言，需要维护两个堆，一个大堆，一个小堆，并保证两个堆中的数据量相差不超过 1。如此一来，大堆顶和小堆顶的元素和再取平均数，结果就是我们需要的百分位数。
+对于静态数据而言，只需要将数据排序，而后取出位置在 50%、95%、99% 的数据即可。但是对于动态数据，或者说流式数据而言，使用数组排序的代价稍有昂贵，所以，此时通常都会使用堆的方式实现：对于计算 P50 而言，需要维护两个堆，一个大堆，一个小堆，并保证两个堆中的数据量相差不超过 1（因为是 P50，所数据需要对半分，奇数个数据对半分之后需对其进行取整）。如此一来，对于整体数据量为奇数的中位数来说，我们只需要取多出来一个元素的堆的堆顶元素即可。而对于整体数据量为偶数的中位数来说，则取两个堆的堆顶元素取平均数即可。
 
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/heap/cal-percentile.png)
+
+当新添加的元素大于大堆顶的元素时，该数据应被推入至小堆。当新添加的元素小于小堆顶的元素时，该数据应被推入至大堆。在某一个堆添加元素之后，可能会打破两个堆的平衡，对于 P50 而言，两个堆的比例应为 1: 1，对于 P99 而言，两个堆的比例应为 99: 1。
