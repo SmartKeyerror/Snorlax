@@ -1,5 +1,9 @@
 #include <stdlib.h>
 
+#ifndef __HEAP_H__
+#define __HEAP_H__
+
+
 typedef struct Heap {
     int size;                               /* 当前数组已有元素数量 */
     int capacity;                           /* 数组容量 */
@@ -57,3 +61,5 @@ extern int is_empty(Heap *heap);
 extern int is_full(Heap *heap);
 
 extern int get_top(Heap *Heap, int *top);
+
+#endif
