@@ -1,7 +1,7 @@
-#include <stdlib.h>
-
 #ifndef __HEAP_H__
 #define __HEAP_H__
+
+#include <stdlib.h>
 
 
 typedef struct Heap {
@@ -18,37 +18,11 @@ enum HeapType {
 };
 
 
-int max_heap_operate(int left, int right) {
-    return left > right;
-}
+extern int max_heap_operate(int left, int right);
 
+extern int min_heap_operate(int left, int right);
 
-int min_heap_operate(int left, int right) {
-    return left < right;
-}
-
-
-Heap *new_heap(int capacity, int heap_type) {
-    Heap *heap = (Heap *)malloc(sizeof(Heap) + sizeof(int) * capacity);
-
-    heap->size = 0;
-    heap->capacity = capacity;
-
-    switch (heap_type) {
-    case MAX_HEAP:
-        heap->operate = max_heap_operate;
-        break;
-    case MIN_HEAP:
-        heap->operate = min_heap_operate;
-        break;
-    default:
-        free(heap);
-        return NULL;
-    }
-    
-    return heap;
-}
-
+extern Heap *new_heap(int capacity, int heap_type);
 
 extern int add(Heap *heap, int value);
 

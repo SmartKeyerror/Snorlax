@@ -4,6 +4,38 @@
 #include <string.h>
 
 
+int max_heap_operate(int left, int right) {
+    return left > right;
+}
+
+
+int min_heap_operate(int left, int right) {
+    return left < right;
+}
+
+
+Heap *new_heap(int capacity, int heap_type) {
+    Heap *heap = (Heap *)malloc(sizeof(Heap) + sizeof(int) * capacity);
+
+    heap->size = 0;
+    heap->capacity = capacity;
+
+    switch (heap_type) {
+    case MAX_HEAP:
+        heap->operate = max_heap_operate;
+        break;
+    case MIN_HEAP:
+        heap->operate = min_heap_operate;
+        break;
+    default:
+        free(heap);
+        return NULL;
+    }
+    
+    return heap;
+}
+
+
 int get_left(int index) {
     return 2 * index + 1;
 }
@@ -121,52 +153,52 @@ Heap *heapify(int elements[], int size, int capacity, int heap_type) {
 }
 
 
-int main() {
-    Heap *heap = new_heap(10, MAX_HEAP);
+// int main() {
+//     Heap *heap = new_heap(10, MAX_HEAP);
 
-    add(heap, 10);
-    add(heap, 9);
-    add(heap, 18);
-    add(heap, 22);
-    add(heap, 29);
-    add(heap, 80);
-    add(heap, 108);
-    add(heap, 500);
-    add(heap, 995);
-    add(heap, 2322);
+//     add(heap, 10);
+//     add(heap, 9);
+//     add(heap, 18);
+//     add(heap, 22);
+//     add(heap, 29);
+//     add(heap, 80);
+//     add(heap, 108);
+//     add(heap, 500);
+//     add(heap, 995);
+//     add(heap, 2322);
 
 
-    for (int i = 0; i < heap->size; i++) {
-        printf("%d, ", heap->elements[i]);
-    }
-    printf("\n");
+//     for (int i = 0; i < heap->size; i++) {
+//         printf("%d, ", heap->elements[i]);
+//     }
+//     printf("\n");
     
 
-    int max, size = heap->size;
+//     int max, size = heap->size;
     
-    for (int i = 0; i < size; i++) {
-        pop(heap, &max);
-        printf("%d, ", max);
-    }
-    printf("\n");
+//     for (int i = 0; i < size; i++) {
+//         pop(heap, &max);
+//         printf("%d, ", max);
+//     }
+//     printf("\n");
 
-    int elements[] = {10, 9, 18, 22, 29, 80, 108, 500, 995, 2322};
-    Heap *new_heap = heapify(elements, sizeof(elements)/sizeof(int), sizeof(elements)/sizeof(int) * 2, MAX_HEAP);
+//     int elements[] = {10, 9, 18, 22, 29, 80, 108, 500, 995, 2322};
+//     Heap *new_heap = heapify(elements, sizeof(elements)/sizeof(int), sizeof(elements)/sizeof(int) * 2, MAX_HEAP);
 
-    for (int i = 0; i < size; i++) {
-        pop(new_heap, &max);
-        printf("%d, ", max);
-    }
-    printf("\n");
+//     for (int i = 0; i < size; i++) {
+//         pop(new_heap, &max);
+//         printf("%d, ", max);
+//     }
+//     printf("\n");
 
 
-    int min;
+//     int min;
 
-    int new_elements[] = {10, 9, 18, 22, 29, 80, 108, 500, 995, 2322};
-    Heap *min_heap = heapify(new_elements, sizeof(new_elements)/sizeof(int), sizeof(new_elements)/sizeof(int) * 2, MIN_HEAP);
+//     int new_elements[] = {10, 9, 18, 22, 29, 80, 108, 500, 995, 2322};
+//     Heap *min_heap = heapify(new_elements, sizeof(new_elements)/sizeof(int), sizeof(new_elements)/sizeof(int) * 2, MIN_HEAP);
 
-    for (int i = 0; i < size; i++) {
-        pop(min_heap, &min);
-        printf("%d, ", min);
-    }
-}
+//     for (int i = 0; i < size; i++) {
+//         pop(min_heap, &min);
+//         printf("%d, ", min);
+//     }
+// }
