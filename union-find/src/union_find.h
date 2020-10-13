@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 #ifndef __UNION_FIND__
-##define __UNION_FIND__
+#define __UNION_FIND__
 
 typedef struct UnionFind {
     int size;
@@ -20,5 +20,4 @@ UF *initUnionFind(int size) {
 
     return u;
 }
-
-##endif
+#endif
