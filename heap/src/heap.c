@@ -139,3 +139,7 @@ Heap *heapify(int elements[], int size, int capacity, int heap_type) {
 
     return heap;
 }
+
+void delete_heap(Heap *heap) {
+    free(heap);
+}

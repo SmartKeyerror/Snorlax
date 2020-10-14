@@ -29,6 +29,8 @@ static void test_heapify(void) {
         printf("%d, ", max);
     }
     printf("\n");
+
+    delete_heap(heap);
 }
 
 int main() {

@@ -13,22 +13,24 @@ enum HeapType {
     MIN_HEAP = 2
 };
 
-extern int max_heap_operate(int left, int right);
+int max_heap_operate(int left, int right);
 
-extern int min_heap_operate(int left, int right);
+int min_heap_operate(int left, int right);
 
-extern Heap *new_heap(int capacity, int heap_type);
+Heap *new_heap(int capacity, int heap_type);
 
-extern int add(Heap *heap, int value);
+int add(Heap *heap, int value);
 
-extern int pop(Heap *heap, int *max_value);
+int pop(Heap *heap, int *max_value);
 
-extern Heap *heapify(int elements[], int size, int capacity, int heap_type);
+Heap *heapify(int elements[], int size, int capacity, int heap_type);
 
-extern int is_empty(Heap *heap);
+int is_empty(Heap *heap);
 
-extern int is_full(Heap *heap);
+int is_full(Heap *heap);
 
-extern int get_top(Heap *Heap, int *top);
+int get_top(Heap *heap, int *top);
+
+void delete_heap(Heap *heap);
 
 #endif
