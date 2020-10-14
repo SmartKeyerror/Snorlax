@@ -98,3 +98,9 @@ void write(CircularBuffer *circular_buffer, int value) {
     return;
 }
 ```
+
+### 2. 运行单元测试
+
+```bash
+make test
+```

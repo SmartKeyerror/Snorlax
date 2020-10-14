@@ -193,3 +193,9 @@ Heap *heapify(int elements[], int size, int capacity, int heap_type) {
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/heap/cal-percentile.png)
 
 当新添加的元素大于大堆顶的元素时，该数据应被推入至小堆。当新添加的元素小于小堆顶的元素时，该数据应被推入至大堆。在某一个堆添加元素之后，可能会打破两个堆的平衡，对于 P50 而言，两个堆的比例应为 1: 1，对于 P99 而言，两个堆的比例应为 99: 1。
+
+### 3. 运行单元测试
+
+```bash
+make test
+```
