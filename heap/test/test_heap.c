@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define HEAP_SZIE 1024
-
+#define HEAP_SIZE 1024
 
 void setUp(void) {}
 
@@ -15,7 +14,7 @@ void tearDown(void) {}
 
 static void test_build_heap(void) {
     // 测试堆的初始化
-    Heap *heap = new_heap(HEAP_SZIE, MAX_HEAP);
+    Heap *heap = new_heap(HEAP_SIZE, MAX_HEAP);
     TEST_ASSERT_NOT_NULL(heap);
 }
 
