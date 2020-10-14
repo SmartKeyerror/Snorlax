@@ -6,15 +6,12 @@
 
 void setUp(void) {}
 
-
 void tearDown(void) {}
-
 
 void static test_build_circular_buffer(void) {
     CircularBuffer *circular_buffer = new_circular_buffer(BUFFER_CAPACITY);
     TEST_ASSERT_NOT_NULL(circular_buffer);
 }
-
 
 void static test_write_values_to_buffer(void) {
     CircularBuffer *circular_buffer = new_circular_buffer(BUFFER_CAPACITY);
@@ -38,7 +35,6 @@ void static test_write_values_to_buffer(void) {
     
 }
 
-
 void static test_read_from_buffer(void) {
     CircularBuffer *circular_buffer = new_circular_buffer(BUFFER_CAPACITY);
     
@@ -55,7 +51,6 @@ void static test_read_from_buffer(void) {
 
     delete_circular_buffer(circular_buffer);
 }
-
 
 int main(){
     UnityBegin("test/test_circular_buffer.c");

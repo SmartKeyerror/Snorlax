@@ -1,9 +1,6 @@
 #ifndef __HEAP_H__
 #define __HEAP_H__
 
-#include <stdlib.h>
-
-
 typedef struct Heap {
     int size;                               /* 当前数组已有元素数量 */
     int capacity;                           /* 数组容量 */
@@ -11,12 +8,10 @@ typedef struct Heap {
     int elements[0];                        /* 元素数组 */
 } Heap;
 
-
 enum HeapType {
     MAX_HEAP = 1,
     MIN_HEAP = 2
 };
-
 
 extern int max_heap_operate(int left, int right);
 

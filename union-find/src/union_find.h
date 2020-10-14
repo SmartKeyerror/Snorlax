@@ -8,7 +8,6 @@ typedef struct UnionFind {
     int elements[0];
 } UF;
 
-
 UF *initUnionFind(int size) {
     UF *u = (UF *)malloc(sizeof(UF) + size * sizeof(int));
 

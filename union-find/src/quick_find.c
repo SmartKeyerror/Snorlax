@@ -22,7 +22,6 @@ void union_node(UF *u, int src, int dst) {
     }
 }
 
-
 int main() {
     UF *u = initUnionFind(10);
 

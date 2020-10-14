@@ -3,16 +3,13 @@
 #include <stdio.h>
 #include <string.h>
 
-
 int max_heap_operate(int left, int right) {
     return left > right;
 }
 
-
 int min_heap_operate(int left, int right) {
     return left < right;
 }
-
 
 Heap *new_heap(int capacity, int heap_type) {
     Heap *heap = (Heap *)malloc(sizeof(Heap) + sizeof(int) * capacity);
@@ -35,7 +32,6 @@ Heap *new_heap(int capacity, int heap_type) {
     return heap;
 }
 
-
 int get_left(int index) {
     return 2 * index + 1;
 }
@@ -54,16 +50,13 @@ void swap(Heap *heap, int src, int dst) {
     heap->elements[dst] = temp;
 }
 
-
 int is_empty(Heap *heap) {
     return heap->size == 0;
 }
 
-
 int is_full(Heap *heap) {
     return heap->size == heap->capacity;
 }
-
 
 int get_top(Heap *heap, int *top) {
     if (is_empty(heap))
@@ -74,14 +67,12 @@ int get_top(Heap *heap, int *top) {
     return 0;
 }
 
-
 static void shift_up(Heap *heap, int index) {
     while (index > 0 && heap->operate(heap->elements[index], heap->elements[get_parent(index)])) {
         swap(heap, index, get_parent(index));
         index = get_parent(index);
     }
 }
-
 
 /* 向堆中添加元素 */
 int add(Heap *heap, int value) {
@@ -95,7 +86,6 @@ int add(Heap *heap, int value) {
 
     return 0;
 }
-
 
 static void shift_down(Heap *heap, int index) {
     /* 当元素没有左子节点或者是当前节点大于左右子节点时，下沉结束 */
@@ -118,7 +108,6 @@ static void shift_down(Heap *heap, int index) {
     }   
 }
 
-
 /* 弹出堆顶元素 */
 int pop(Heap *heap, int *max_value) {
     if (is_empty(heap)) 
@@ -134,7 +123,6 @@ int pop(Heap *heap, int *max_value) {
 
     return 0;
 }
-
 
 /* 使用已有数组快速建堆 */
 Heap *heapify(int elements[], int size, int capacity, int heap_type) {

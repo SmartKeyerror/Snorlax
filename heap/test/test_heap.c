@@ -8,16 +8,13 @@
 
 void setUp(void) {}
 
-
 void tearDown(void) {}
-
 
 static void test_build_heap(void) {
     // 测试堆的初始化
     Heap *heap = new_heap(HEAP_SIZE, MAX_HEAP);
     TEST_ASSERT_NOT_NULL(heap);
 }
-
 
 static void test_heapify(void) {
     // 测试堆化
@@ -33,7 +30,6 @@ static void test_heapify(void) {
     }
     printf("\n");
 }
-
 
 int main() {
     UnityBegin("test/test_heap.c");
