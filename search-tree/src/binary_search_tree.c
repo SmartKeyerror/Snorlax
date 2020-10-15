@@ -1,5 +1,5 @@
 #include "binary_search_tree.h"
-#include "../stack/src/stack.h"
+#include "../../stack/src/stack.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -74,6 +74,8 @@ int insert(BinaryTree *binary_tree, int value) {
     } else {
         parrent->right = node;
     }
+
+    binary_tree->count++;
     
     return SUCCESS;
 }
@@ -119,7 +121,7 @@ int get_min_value(BinaryTree *binary_tree, int *result) {
 /*
  * 递归实现的前序遍历(根节点->左子树->右子树), 中序、后序的遍历只需要调整递归函数中的处理语句即可
  */
-void _preorder_recursive(Node *root);
+static void _preorder_recursive(Node *root);
 
 void preorder_recursive(BinaryTree *binary_tree) {
     _preorder_recursive(binary_tree->root);
@@ -128,7 +130,31 @@ void preorder_recursive(BinaryTree *binary_tree) {
 static void _preorder_recursive(Node *root) {
     if (root == NULL) return;
 
-    printf("%d", root->value);
-    preorder_recursive(root->left);
-    preorder_recursive(root->right);
+    printf("%d, ", root->value);
+    _preorder_recursive(root->left);
+    _preorder_recursive(root->right);
+}
+
+void preorder(BinaryTree *binary_tree) {
+    
+    Stack *stack = new_stack(binary_tree->count, sizeof(Node *));
+    if (stack == NULL) return;
+
+    push(stack, &binary_tree->root);
+
+    Node *process_node;
+
+    while (!is_stack_empty(stack)) {
+        pop(stack, &process_node);
+
+        printf("%d, ", process_node->value);
+
+        if (process_node->right != NULL) {
+            push(stack, &process_node->right);
+        }
+            
+        if (process_node->left != NULL) {
+            push(stack, &process_node->left);
+        }
+    }
 }
