@@ -1,21 +1,23 @@
 #include "circular_buffer.h"
 
 #include <stdlib.h>
+#include <stddef.h>
+#include <stdbool.h>
 
 
-int is_empty(CircularBuffer *circular_buffer) {
-    return circular_buffer->size == 0;
+bool is_empty(CircularBuffer *circular_buffer) {
+    return (circular_buffer->size == 0);
 }
 
-int is_full(CircularBuffer *circular_buffer) {
-    return circular_buffer->size >= circular_buffer->capacity;
+bool is_full(CircularBuffer *circular_buffer) {
+    return (circular_buffer->size >= circular_buffer->capacity);
 }
 
-int increment_index(int index, int capacity) {
+size_t increment_index(size_t index, size_t capacity) {
     return (index + 1) % capacity;
 }
 
-CircularBuffer *new_circular_buffer(int capacity) {
+CircularBuffer *new_circular_buffer(size_t capacity) {
     CircularBuffer *circular_buffer = (CircularBuffer *)malloc(sizeof(CircularBuffer) + sizeof(int) * capacity);
 
     // 初始化

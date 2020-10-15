@@ -12,16 +12,18 @@
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/circular-buffer/init.png)
 
 ```cpp
+#include <stddef.h>
+
 typedef struct circular_buffer {
-    int head;           /* 头指针，指向下一个读取元素的位置 */
-    int tail;           /* 尾指针，指向下一个写入元素的位置 */
-    int size;           /* 当前缓冲区已有元素数量 */
-    int capacity;       /* 环形缓冲区容量 */
-    int elements[0];    /* 动态元素数组 */
+    size_t head;           /* 头指针，指向下一个读取元素的位置 */
+    size_t tail;           /* 尾指针，指向下一个写入元素的位置 */
+    size_t size;           /* 当前缓冲区已有元素数量 */
+    size_t capacity;       /* 环形缓冲区容量 */
+    int elements[0];       /* 动态元素数组 */
 } CircularBuffer;
 
 
-CircularBuffer *new_circular_buffer(int capacity) {
+CircularBuffer *new_circular_buffer(size_t capacity) {
     CircularBuffer *circular_buffer = (CircularBuffer *)malloc(
         sizeof(CircularBuffer) + sizeof(int) * capacity
     );
@@ -50,7 +52,7 @@ void clear_circular_buffer(CircularBuffer *circular_buffer) {
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/circular-buffer/pop-item.png)
 
 ```cpp
-int increment_index(int index, int capacity) {
+size_t increment_index(size_t index, size_t capacity) {
     return (index + 1) % capacity;
 }
 

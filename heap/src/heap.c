@@ -1,17 +1,19 @@
 #include "heap.h"
 
 #include <stdio.h>
+#include <stddef.h>
+#include <stdbool.h>
 #include <string.h>
 
-int max_heap_operate(int left, int right) {
-    return left > right;
+bool max_heap_operate(size_t left, size_t right) {
+    return (left > right);
 }
 
-int min_heap_operate(int left, int right) {
-    return left < right;
+bool min_heap_operate(size_t left, size_t right) {
+    return (left < right);
 }
 
-Heap *new_heap(int capacity, int heap_type) {
+Heap *new_heap(size_t capacity, int heap_type) {
     Heap *heap = (Heap *)malloc(sizeof(Heap) + sizeof(int) * capacity);
 
     heap->size = 0;
@@ -32,30 +34,30 @@ Heap *new_heap(int capacity, int heap_type) {
     return heap;
 }
 
-int get_left(int index) {
+static size_t get_left(size_t index) {
     return 2 * index + 1;
 }
 
-int get_right(int index) {
+static size_t get_right(size_t index) {
     return 2 * index + 2;
 }
 
-int get_parent(int index) {
+static size_t get_parent(size_t index) {
     return (index - 1) / 2;
 }
 
-void swap(Heap *heap, int src, int dst) {
+static void swap(Heap *heap, size_t src, size_t dst) {
     int temp = heap->elements[src];
     heap->elements[src] = heap->elements[dst];
     heap->elements[dst] = temp;
 }
 
-int is_empty(Heap *heap) {
-    return heap->size == 0;
+bool is_empty(Heap *heap) {
+    return (heap->size == 0);
 }
 
-int is_full(Heap *heap) {
-    return heap->size == heap->capacity;
+bool is_full(Heap *heap) {
+    return (heap->size == heap->capacity);
 }
 
 int get_top(Heap *heap, int *top) {
@@ -67,7 +69,7 @@ int get_top(Heap *heap, int *top) {
     return 0;
 }
 
-static void shift_up(Heap *heap, int index) {
+static void shift_up(Heap *heap, size_t index) {
     while (index > 0 && heap->operate(heap->elements[index], heap->elements[get_parent(index)])) {
         swap(heap, index, get_parent(index));
         index = get_parent(index);
@@ -87,12 +89,12 @@ int add(Heap *heap, int value) {
     return 0;
 }
 
-static void shift_down(Heap *heap, int index) {
+static void shift_down(Heap *heap, size_t index) {
     /* 当元素没有左子节点或者是当前节点大于左右子节点时，下沉结束 */
     while (get_left(index) < heap->size ) {
 
         /* 暂定左子节点为值最大(或最小)的节点 */
-        int max = get_left(index);
+        size_t max = get_left(index);
 
         /* 当存在右子节点并且其值大于(或小于)左子节点时，更新最大值(最小值)索引为右子节点*/
         if (max + 1 < heap->size && heap->operate(heap->elements[max + 1], heap->elements[max]))
@@ -125,7 +127,7 @@ int pop(Heap *heap, int *max_value) {
 }
 
 /* 使用已有数组快速建堆 */
-Heap *heapify(int elements[], int size, int capacity, int heap_type) {
+Heap *heapify(int elements[], size_t size, size_t capacity, int heap_type) {
     Heap *heap = new_heap(capacity, heap_type);
     heap->size = size;
     heap->capacity = capacity;
