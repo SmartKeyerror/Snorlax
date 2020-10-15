@@ -2,4 +2,4 @@
 .vscode/
 .__pycache__
 **/tests.out
-**/.gch
+*.gch
