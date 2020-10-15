@@ -45,6 +45,10 @@ bool is_stack_full(Stack *stack) {
     return (stack->size >= stack->capacity);
 }
 
+/*
+ * 这里需要特别注意的是, value 是栈中保存元素的指针
+ * 当保存 int 类型时应传入指向 int 的指针; 当保存指针类型时，应传入指针的指针。pop 函数同理。
+ */
 int push(Stack *stack, void *value) {
     if (is_stack_full(stack))
         return FAIL;

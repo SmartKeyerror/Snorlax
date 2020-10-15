@@ -140,6 +140,11 @@ void preorder(BinaryTree *binary_tree) {
     Stack *stack = new_stack(binary_tree->count, sizeof(Node *));
     if (stack == NULL) return;
 
+    /*
+     * 这里需要注意的是，泛型栈必须传入想要保存的元素的指针
+     * 虽然 binary_tree->root 本身就是一个指针，但是我们不能直接将 binary_tree->root 传入
+     * 应该使用更高层的指针来保证原有指针不会在调用 push 以及 pop 方法时受到“损坏”
+     */
     push(stack, &binary_tree->root);
 
     Node *process_node;
