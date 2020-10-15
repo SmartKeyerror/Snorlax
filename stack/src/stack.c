@@ -4,25 +4,36 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define SUCCESS 0
 #define FAIL -1
 
-Stack *new_stack(size_t capacity) {
-    Stack *stack = (Stack *)malloc(sizeof(Stack) + capacity * sizeof(int));
+Stack *new_stack(size_t capacity, size_t element_size) {
+    Stack *stack = (Stack *)malloc(sizeof(Stack));
+
+    if (stack == NULL) {
+        perror("malloc Stack failed");
+        return NULL;
+    }
+
+    stack->elements = malloc(capacity * element_size);
+
+    if (stack->elements == NULL) {
+        perror("malloc Stacki failed");
+        free(stack);
+        return NULL;
+    }
 
     stack->size = 0;
     stack->capacity = capacity;
-
-    if (stack == NULL) {
-        perror("malloc Stacki failed");
-        return NULL;
-    }
+    stack->element_size = element_size;
 
     return stack;
 }
 
 void delete_stack(Stack *stack) {
+    free(stack->elements);
     free(stack);
 }
 
@@ -34,22 +45,26 @@ bool is_stack_full(Stack *stack) {
     return (stack->size >= stack->capacity);
 }
 
-int push(Stack *stack, int value) {
+int push(Stack *stack, void *value) {
     if (is_stack_full(stack))
         return FAIL;
     
-    stack->elements[stack->size] = value;
+    void *target = (char *)stack->elements + stack->size * stack->element_size;
+    memcpy(target, value, stack->element_size);
+
     stack->size++;
 
     return SUCCESS;
 }
 
-int pop(Stack *stack, int *value) {
+int pop(Stack *stack, void *value) {
     if (is_stack_empty(stack))
         return FAIL;
     
-    *value = stack->elements[stack->size - 1];
+    void *stack_top = (char *)stack->elements + (stack->size - 1)  * stack->element_size;
+    memcpy(value, stack_top, stack->element_size);
+
     stack->size--;
 
     return SUCCESS;
-} 
+}

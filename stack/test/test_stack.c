@@ -11,12 +11,12 @@ void setUp(void) {}
 void tearDown(void) {}
 
 static void test_push_stack(void) {
-    Stack *stack = new_stack(STACK_CAPACITY);
+    Stack *stack = new_stack(STACK_CAPACITY, sizeof(int));
 
     TEST_ASSERT_NOT_NULL(stack);
 
     for (int i = 0; i < STACK_CAPACITY; i++) {
-        int result = push(stack, i);
+        int result = push(stack, &i);
         TEST_ASSERT_EQUAL(0, result);
     }
 
@@ -26,12 +26,12 @@ static void test_push_stack(void) {
 }
 
 static void test_pop_stack(void) {
-    Stack *stack = new_stack(STACK_CAPACITY);
+    Stack *stack = new_stack(STACK_CAPACITY, sizeof(int));
 
     TEST_ASSERT_NOT_NULL(stack);
 
     for (int i = 0; i < STACK_CAPACITY; i++) {
-        int result = push(stack, i);
+        int result = push(stack, &i);
         TEST_ASSERT_EQUAL(0, result);
     }
 
