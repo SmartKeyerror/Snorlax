@@ -20,7 +20,7 @@ BinaryTree *new_binary_tree(void) {
     return binary_tree;
 }
 
-Node *new_node(int value) {
+Node *new_node(int key, void *value) {
     Node *node = (Node *)malloc(sizeof(Node));
 
     if (node == NULL) {
@@ -28,28 +28,66 @@ Node *new_node(int value) {
         return NULL;
     }
 
+    node->key = key;
     node->value = value;
     node->left = node->right = NULL;
     return node;
 }
 
+void delete_node(Node *node) {
+    free(node);
+}
+
+void static delete_tree_node(Node *root) {
+    if (root == NULL) return;
+
+    delete_tree_node(root->left);
+    delete_tree_node(root->right);
+    delete_node(root);
+}
+
+/*
+ * 递归实现的后序遍历释放内存空间
+ */
 void delete_binary_tree(BinaryTree *binary_tree) {
-    // 使用栈实现的后序遍历逐一地释放每一个Node的内存空间
+    delete_tree_node(binary_tree->root);
+    free(binary_tree);
+}
+
+/*
+ * 查找元素
+ */
+int find(BinaryTree *binary_tree, int find_key, Node *result) {
+    Node *current = binary_tree->root;
+
+    while (current != NULL) {
+        if (find_key == current->key) {
+            *result = *current;
+            return SUCCESS;
+        } else if (find_key > current->key) {
+            current = current->right;
+        } else {
+            current = current->left;
+        }
+    }
+
+    return FAIL;
 }
 
 /*
  * 二分搜索树插入元素
  */
-int insert(BinaryTree *binary_tree, int value) {
+int insert(BinaryTree *binary_tree, int key, void *value) {
 
-    Node *node = new_node(value);
+    Node *node = new_node(key, value);
 
     if (node == NULL) {
         return FAIL;
     }
 
     if (binary_tree->root == NULL) {
-        binary_tree->root = new_node(value);
+        binary_tree->root = node;
+        binary_tree->count++;
         return SUCCESS;
     }
 
@@ -62,14 +100,16 @@ int insert(BinaryTree *binary_tree, int value) {
          */
         parrent = current;
 
-        if (value < current->value) {
-            current = current->left;        // 当value小于当前节点值时，于左子树中进行查找
+        if (key < current->key) {
+            current = current->left;        // 当key小于当前节点值时，于左子树中进行查找
+        } else if (key == current->key) {        // 当key等于当前节点值时，直接返回
+            return;
         } else {
             current = current->right;       // 反之，则去右子树中查找
         }
     }
 
-    if (value < parrent->value) {
+    if (key < parrent->key) {
         parrent->left = node;
     } else {
         parrent->right = node;
@@ -81,9 +121,9 @@ int insert(BinaryTree *binary_tree, int value) {
 }
 
 /*
- * 获取二分搜索树中的最大值
+ * 获取二分搜索树中的最大值节点
  */
-int get_max_value(BinaryTree *binary_tree, int *result) {
+int get_max_value(BinaryTree *binary_tree, Node *result) {
     if (binary_tree->root == NULL) {
         return FAIL;
     }
@@ -94,15 +134,15 @@ int get_max_value(BinaryTree *binary_tree, int *result) {
         current = current->right;
     }
 
-    *result = current->value;
+    *result = *current;
 
     return SUCCESS;
 }
 
 /*
- * 获取二分搜索树中的最小值
+ * 获取二分搜索树中的最小值节点
  */
-int get_min_value(BinaryTree *binary_tree, int *result) {
+int get_min_value(BinaryTree *binary_tree, Node *result) {
     if (binary_tree->root == NULL) {
         return FAIL;
     }
@@ -113,7 +153,7 @@ int get_min_value(BinaryTree *binary_tree, int *result) {
         current = current->left;
     }
 
-    *result = current->value;
+    *result = *current;
 
     return SUCCESS;
 }
@@ -130,7 +170,7 @@ void preorder_recursive(BinaryTree *binary_tree) {
 static void _preorder_recursive(Node *root) {
     if (root == NULL) return;
 
-    printf("%d, ", root->value);
+    printf("%d, ", root->key);
     _preorder_recursive(root->left);
     _preorder_recursive(root->right);
 }
@@ -152,12 +192,12 @@ void preorder(BinaryTree *binary_tree) {
     while (!is_stack_empty(stack)) {
         pop(stack, &process_node);
 
-        printf("%d, ", process_node->value);
+        printf("%d, ", process_node->key);
 
         if (process_node->right != NULL) {
             push(stack, &process_node->right);
         }
-            
+
         if (process_node->left != NULL) {
             push(stack, &process_node->left);
         }
