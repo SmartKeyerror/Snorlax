@@ -50,9 +50,13 @@ void test_build_node(void) {
     BinaryTree *binary_tree = new_binary_tree();
     TEST_ASSERT_NOT_NULL(binary_tree);
 
-    insert(binary_tree, 10, &"hello");
-    insert(binary_tree, 8, &"binary");
-    insert(binary_tree, 15, &"tree");
+    char *h = "hello";
+    char *b = "binary";
+    char *t = "tree";
+
+    insert(binary_tree, 10, &h);
+    insert(binary_tree, 8, &b);
+    insert(binary_tree, 15, &t);
     insert(binary_tree, 22, NULL);
     insert(binary_tree, 80, NULL);
 
@@ -62,7 +66,7 @@ void test_build_node(void) {
     TEST_ASSERT_EQUAL(0, res);
     TEST_ASSERT_EQUAL(15, result.key);
 
-    res = strcmp("tree", (char *)result.value);
+    res = strcmp("tree", *(char **)result.value);
     TEST_ASSERT_EQUAL(0, res);
 }
 
