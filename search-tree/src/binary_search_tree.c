@@ -101,11 +101,11 @@ int insert(BinaryTree *binary_tree, int key, void *value) {
         parrent = current;
 
         if (key < current->key) {
-            current = current->left;        // 当key小于当前节点值时，于左子树中进行查找
+            current = current->left;             // 当key小于当前节点值时，于左子树中进行查找
         } else if (key == current->key) {        // 当key等于当前节点值时，直接返回
             return;
         } else {
-            current = current->right;       // 反之，则去右子树中查找
+            current = current->right;           // 反之，则去右子树中查找
         }
     }
 
@@ -118,6 +118,33 @@ int insert(BinaryTree *binary_tree, int key, void *value) {
     binary_tree->count++;
     
     return SUCCESS;
+}
+
+/*
+ * 二分搜索树更新元素，若存在所需更新的key则进行更新，否则返回错误
+ */
+int update(BinaryTree *binary_tree, int key, void *value) {
+    Node *current = binary_tree->root;
+
+    while (current != NULL) {
+        if (key == current->key) {
+            current->value = value;
+            return SUCCESS;
+        } else if (key > current->key) {
+            current = current->right;
+        } else {
+            current = current->left;
+        }
+    }
+
+    return FAIL;
+}
+
+/*
+ * 二分搜索树删除元素，若存在删除的key则删除，否则返回错误
+ */
+int delete(BinaryTree *binary_tree, int key) {
+
 }
 
 /*

@@ -25,6 +25,10 @@ int find(BinaryTree *binary_tree, int find_key, Node *result);
 
 int insert(BinaryTree *binary_tree, int key, void *value);
 
+int update(BinaryTree *binary_tree, int key, void *value);
+
+int delete(BinaryTree *binary_tree, int key);
+
 int get_max_value(BinaryTree *binary_tree, Node *result);
 
 int get_min_value(BinaryTree *binary_tree, Node *result);
@@ -33,5 +37,10 @@ void preorder_recursive(BinaryTree *binary_tree);
 
 void preorder(BinaryTree *binary_tree);
 
+void midorder(BinaryTree *binary_tree);
+
+void postorder(BinaryTree *binary_tree);
+
+void levelorder(BinaryTree *binary_tree);
 
 #endif
