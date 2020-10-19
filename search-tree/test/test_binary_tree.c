@@ -70,6 +70,26 @@ void test_build_node(void) {
     TEST_ASSERT_EQUAL(0, res);
 }
 
+int test_delete_node(void) {
+    BinaryTree *binary_tree = new_binary_tree();
+    TEST_ASSERT_NOT_NULL(binary_tree);
+
+    char *h = "hello";
+    char *b = "binary";
+    char *t = "tree";
+    char *s = "string";
+
+    insert(binary_tree, 10, &h);
+    insert(binary_tree, 8, &b);
+    insert(binary_tree, 15, &t);
+    insert(binary_tree, 22, &s);
+    insert(binary_tree, 80, NULL);
+
+    delete(binary_tree, 8);
+
+    TEST_ASSERT_EQUAL(4, binary_tree->count);
+}
+
 int main() {
     UnityBegin("test/test_stack.c");
 
@@ -77,6 +97,7 @@ int main() {
     RUN_TEST(test_build_node);
     RUN_TEST(test_insert_value);
     RUN_TEST(test_find_key);
+    RUN_TEST(test_delete_node);
 
     return UnityEnd();
 }

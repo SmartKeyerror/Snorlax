@@ -141,10 +141,118 @@ int update(BinaryTree *binary_tree, int key, void *value) {
 }
 
 /*
- * 二分搜索树删除元素，若存在删除的key则删除，否则返回错误
+ * 删除以 root 为根的二分搜索树的最小值，并返回删除后二分搜索树的根, 递归实现
  */
-int delete(BinaryTree *binary_tree, int key) {
+static Node *_delete_min(BinaryTree *binary_tree, Node *root) {
+    if (root->left == NULL) {
+        Node *right_node = root->right;
+        
+        root->right = NULL;         // 断开与原有二叉树的连接
+        delete_node(root);
 
+        binary_tree->count--;
+        return right_node;
+    }
+
+    root->left = _delete_min(binary_tree, root->left);
+
+    return root;
+}
+
+
+int delete_min(BinaryTree *binary_tree, Node *min_node) {
+
+    int res = get_min_value(binary_tree, min_node);
+    
+    if (res == FAIL) return FAIL;
+
+    binary_tree->root = _delete_min(binary_tree, binary_tree->root);
+
+    return SUCCESS;
+}
+
+/*
+ * 删除以 root 为根的二分搜索树的最大值，并返回删除后二分搜索树的根, 递归实现
+ */
+static Node *_delete_max(BinaryTree *binary_tree, Node *root) {
+    if (root->right == NULL) {
+        Node *left_node = root->left;
+
+        root->left = NULL;         // 断开与原有二叉树的连接
+        delete_node(root);
+
+        binary_tree->count--;
+        return left_node;
+    }
+
+    root->right = _delete_max(binary_tree, root->right);
+
+    return root;
+}
+
+int delete_max(BinaryTree *binary_tree, Node *max_node) {
+
+    int res = get_max_value(binary_tree, max_node);
+    
+    if (res == FAIL) return FAIL;
+
+    binary_tree->root = _delete_max(binary_tree, binary_tree->root);
+
+    return SUCCESS;
+}
+
+static Node *_delete(BinaryTree *binary_tree, Node *root, int key) {
+    if (root == NULL) return NULL;
+
+    if (key < root->key) {
+        root->left = _delete(binary_tree, root->left, key);
+        return root;
+    }
+    else if (key > root->key) {
+        root->right = _delete(binary_tree, root->right, key);
+        return root;
+    }
+    else {
+        
+        // 待删除节点左子树为空的情况
+        if (root->left == NULL) {
+            Node *right_node = root->right;
+
+            root->right = NULL;         // 断开与原有二叉树的连接
+            delete_node(root);
+
+            binary_tree->count--;
+
+            return right_node;
+        }
+
+        // 待删除节点右子树为空的情况
+        else if (root->right == NULL) {
+            Node *left_node = root->left;
+
+            root->left = NULL;         // 断开与原有二叉树的连接
+            delete_node(root);
+
+            binary_tree->count--;
+
+            return left_node;
+        }
+
+        // 既有左子树，又有右子树，使用 Hibbard-Deletion 删除
+        Node *minium = new_node(0, NULL);
+        get_min_value(binary_tree, &minium);
+        minium->right = _delete_min(binary_tree, root->right);
+        minium->left = root->left;
+
+        return minium;
+    }
+}
+
+/*
+ * 二分搜索树删除元素
+ */
+void delete(BinaryTree *binary_tree, int key) {
+    binary_tree->root = _delete(binary_tree, binary_tree->root, key);
 }
 
 /*

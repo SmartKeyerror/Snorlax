@@ -27,7 +27,11 @@ int insert(BinaryTree *binary_tree, int key, void *value);
 
 int update(BinaryTree *binary_tree, int key, void *value);
 
-int delete(BinaryTree *binary_tree, int key);
+void delete(BinaryTree *binary_tree, int key);
+
+int delete_min(BinaryTree *binary_tree, Node *min_node);
+
+int delete_max(BinaryTree *binary_tree, Node *max_node);
 
 int get_max_value(BinaryTree *binary_tree, Node *result);
 
