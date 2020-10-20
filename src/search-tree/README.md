@@ -118,7 +118,7 @@ int insert(BinaryTree *binary_tree, int key, void *value) {
 
 如下图所示，假设待删除节点的 `key` 为 95，并将其标注为节点 `E`。如果按照后驱节点进行替换的方式删除节点 `E` 的话，那么大于节点 `E` 的且最接近的节点为 102。因此，只需要将 102 从右子树中删除，并移动到原有节点 `E` 的位置即可。
 
-![Alt text](./1603072143161.png)
+![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/binary-search-tree/delete_node.png)
 
 前驱节点同理，找到待删除节点左子树中最大值，删除后移至待删除的节点位置即可。
 
@@ -240,7 +240,7 @@ void levelorder(BinaryTree *binary_tree) {
 
 深度优先遍历又分为前序遍历、中序遍历与后序遍历，其中前序遍历按照“根节点-左子树-右子树”的顺序输出元素，中序遍历则按照“左子树-根节点-右子树”的顺序输出元素。
 
-![Alt text](./1603173383271.png)
+![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/binary-search-tree/simple-tree.png)
 
 对于上述的一棵二分搜索树而言，三种遍历方式的输出元素分别为：
 
