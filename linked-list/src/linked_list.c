@@ -9,8 +9,8 @@
 #define SUCCESS 0
 #define FAIL -1
 
-Node *new_node(void *value, Node *prev, Node *next) {
-    Node *node = (Node *)malloc(sizeof(Node));
+ListNode *new_list_node(void *value, ListNode *prev, ListNode *next) {
+    ListNode *node = (ListNode *)malloc(sizeof(ListNode));
 
     if (node == NULL) {
         perror("malloc linked list node failed");
@@ -24,9 +24,9 @@ Node *new_node(void *value, Node *prev, Node *next) {
     return node;
 }
 
-LinkedList *new_lined_list(void) {
-    Node *dummy_head = new_node(NULL, NULL, NULL);
-    Node *dummy_tail = new_node(NULL, NULL, NULL);
+LinkedList *new_linked_list(void) {
+    ListNode *dummy_head = new_list_node(NULL, NULL, NULL);
+    ListNode *dummy_tail = new_list_node(NULL, NULL, NULL);
 
     if (dummy_head == NULL || dummy_tail == NULL) return NULL;
 
@@ -47,16 +47,15 @@ LinkedList *new_lined_list(void) {
     linked_list->size = 0;
 }
 
-bool is_empty(LinkedList *linked_list) {
+bool is_linked_list_empty(LinkedList *linked_list) {
     return (linked_list->size == 0);
 }
-
 
 /*
  * 向链表尾部添加元素
  */
 void append(LinkedList *linked_list, void *value) {
-    Node *tail_node = new_node(value, linked_list->dummy_tail->prev, linked_list->dummy_tail);
+    ListNode *tail_node = new_list_node(value, linked_list->dummy_tail->prev, linked_list->dummy_tail);
 
     linked_list->dummy_tail->prev->next = tail_node;
     linked_list->dummy_tail->prev = tail_node;
@@ -75,7 +74,7 @@ void insert_head(LinkedList *linked_list, void *value) {
         return ;
     }
 
-    Node *head_node = new_node(value, linked_list->dummy_head, linked_list->dummy_head->next);
+    ListNode *head_node = new_list_node(value, linked_list->dummy_head, linked_list->dummy_head->next);
 
     linked_list->dummy_head->next->prev = head_node;
     linked_list->dummy_head->next = head_node;
@@ -88,9 +87,9 @@ void insert_head(LinkedList *linked_list, void *value) {
  */
 int pop_head(LinkedList *linked_list, void *result) {
 
-    if (is_empty(linked_list)) return FAIL;
+    if (is_linked_list_empty(linked_list)) return FAIL;
 
-    Node *head_node = linked_list->dummy_head->next;
+    ListNode *head_node = linked_list->dummy_head->next;
 
     memcpy(result, head_node->value, sizeof(head_node->value));
 
@@ -108,9 +107,9 @@ int pop_head(LinkedList *linked_list, void *result) {
  */
 int pop_tail(LinkedList *linked_list, void *result) {
 
-    if (is_empty(linked_list)) return FAIL;
+    if (is_linked_list_empty(linked_list)) return FAIL;
 
-    Node *tail_node = linked_list->dummy_tail->prev;
+    ListNode *tail_node = linked_list->dummy_tail->prev;
 
     memcpy(result, tail_node->value, sizeof(tail_node->value));
 

@@ -11,7 +11,7 @@ void setUp(void) {}
 void tearDown(void) {}
 
 static void show_int_linked_list(LinkedList *linked_list) {
-    Node *current = linked_list->dummy_head->next;
+    ListNode *current = linked_list->dummy_head->next;
 
     while (current != NULL) {
         if (current->next == linked_list->dummy_tail) {
@@ -25,7 +25,7 @@ static void show_int_linked_list(LinkedList *linked_list) {
 }
 
 static void test_append_value(void) {
-    LinkedList *linked_list = new_lined_list();
+    LinkedList *linked_list = new_linked_list();
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
@@ -42,7 +42,7 @@ static void test_append_value(void) {
 }
 
 static void test_insert_head(void) {
-    LinkedList *linked_list = new_lined_list();
+    LinkedList *linked_list = new_linked_list();
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
@@ -59,7 +59,7 @@ static void test_insert_head(void) {
 }
 
 static void test_pop_tail(void) {
-    LinkedList *linked_list = new_lined_list();
+    LinkedList *linked_list = new_linked_list();
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
@@ -81,7 +81,7 @@ static void test_pop_tail(void) {
 }
 
 static void test_pop_head(void) {
-    LinkedList *linked_list = new_lined_list();
+    LinkedList *linked_list = new_linked_list();
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
