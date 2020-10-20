@@ -90,6 +90,48 @@ int test_delete_node(void) {
     TEST_ASSERT_EQUAL(4, binary_tree->count);
 }
 
+void test_midorder(void) {
+    BinaryTree *binary_tree = new_binary_tree();
+    TEST_ASSERT_NOT_NULL(binary_tree);
+
+    insert(binary_tree, 99, NULL);
+    insert(binary_tree, 87, NULL);
+    insert(binary_tree, 25, NULL);
+    insert(binary_tree, 105, NULL);
+    insert(binary_tree, 188, NULL);
+    insert(binary_tree, 104, NULL);
+    insert(binary_tree, 106, NULL);
+    insert(binary_tree, 200, NULL);
+    insert(binary_tree, 10, NULL);
+    insert(binary_tree, 9, NULL);
+    insert(binary_tree, 54, NULL);
+    insert(binary_tree, 32, NULL);
+    insert(binary_tree, 66, NULL);
+
+    midorder(binary_tree);
+}
+
+void test_level_order(void) {
+    BinaryTree *binary_tree = new_binary_tree();
+    TEST_ASSERT_NOT_NULL(binary_tree);
+
+    insert(binary_tree, 99, NULL);
+    insert(binary_tree, 87, NULL);
+    insert(binary_tree, 25, NULL);
+    insert(binary_tree, 105, NULL);
+    insert(binary_tree, 188, NULL);
+    insert(binary_tree, 104, NULL);
+    insert(binary_tree, 106, NULL);
+    insert(binary_tree, 200, NULL);
+    insert(binary_tree, 10, NULL);
+    insert(binary_tree, 9, NULL);
+    insert(binary_tree, 54, NULL);
+    insert(binary_tree, 32, NULL);
+    insert(binary_tree, 66, NULL);
+
+    levelorder(binary_tree);
+}
+
 int main() {
     UnityBegin("test/test_stack.c");
 
@@ -98,6 +140,8 @@ int main() {
     RUN_TEST(test_insert_value);
     RUN_TEST(test_find_key);
     RUN_TEST(test_delete_node);
+    RUN_TEST(test_midorder);
+    RUN_TEST(test_level_order);
 
     return UnityEnd();
 }

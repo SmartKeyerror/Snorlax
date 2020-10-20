@@ -1,5 +1,6 @@
 #include "binary_search_tree.h"
 #include "../../stack/src/stack.h"
+#include "../../linked-list/src/linked_list.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -337,4 +338,70 @@ void preorder(BinaryTree *binary_tree) {
             push(stack, &process_node->left);
         }
     }
+}
+
+/*
+ * 栈实现的中序遍历
+ */
+void midorder(BinaryTree *binary_tree) {
+    Stack *stack = new_stack(binary_tree->count, sizeof(Node *));
+    if (stack == NULL) return;
+
+    Node *current_root = binary_tree->root;
+
+    push(stack, &current_root);
+
+    Node *process_node;
+
+    printf("mid order: ");
+
+    while (!is_stack_empty(stack)) {
+
+        // 若当前节点的左孩子不为空的话，将其push进栈
+        while (current_root->left != NULL) {
+            push(stack, &current_root->left);
+            current_root = current_root->left;
+        }
+
+        pop(stack, &process_node);
+        printf("%d, ", process_node->key);
+
+        // 若弹出的节点存在右子节点，则将其右孩子push进栈，并将右孩子作为新的root
+        if (process_node->right != NULL) {
+            push(stack, &process_node->right);
+            current_root = process_node->right;
+        }
+    }
+    printf("\n");
+}
+
+/*
+ * 队列(双链表)实现的层序遍历
+ */
+void levelorder(BinaryTree *binary_tree) {
+    LinkedList *queue = new_linked_list();
+    if (queue == NULL) return;
+
+    Node *current_root = binary_tree->root;
+
+    insert_head(queue, &current_root);
+
+    Node *process_node;
+
+    printf("level order: ");
+
+    while (!is_linked_list_empty(queue)) {
+        pop_tail(queue, &process_node);
+
+        printf("%d, ", process_node->key);
+
+        if (process_node->left != NULL) {
+            insert_head(queue, &process_node->left);
+        }
+
+        if (process_node->right != NULL) {
+            insert_head(queue, &process_node->right);
+        }
+    }
+    printf("\n");
 }

@@ -34,5 +34,5 @@ clean:
 
 tests.out: test/*.c src/*.c src/*.h
 	@echo Compiling $@
-	### 此处需和 stack 共同编译
-	@$(CC) $(CFLAGS) src/*.c test/vendor/unity.c test/*.c ../stack/src/*.h ../stack/src/*.c -o tests.out $(LIBS)
+	### 此处需和 stack、linked_list 共同编译
+	@$(CC) $(CFLAGS) src/*.c test/vendor/unity.c test/*.c ../stack/src/*.h ../stack/src/*.c ../linked-list/src/*.h ../linked-list/src/*.c -o tests.out $(LIBS)
