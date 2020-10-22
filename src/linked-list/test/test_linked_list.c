@@ -15,10 +15,10 @@ static void show_int_linked_list(LinkedList *linked_list) {
 
     while (current != NULL) {
         if (current->next == linked_list->dummy_tail) {
-            printf("%d \n", *(int *)current->value);
+            printf("%s-%d \n", current->key, *(int *)current->value);
             break;
         }
-        printf("%d => ", *(int *)current->value);
+        printf("%s-%d => ", current->key, *(int *)current->value);
 
         current = current->next;
     }
@@ -29,11 +29,12 @@ static void test_append_value(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    int *value;
+    char s[2];
     for (int i = 0; i < 10; i++) {
-        value = (int *)malloc(sizeof(int));
+        int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
-        append(linked_list, value);
+        sprintf(s, "%d", i * 2);
+        append(linked_list, s, value);
     }
 
     TEST_ASSERT_EQUAL(10, linked_list->size);
@@ -46,11 +47,12 @@ static void test_insert_head(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    int *value;
+    char s[2];
     for (int i = 0; i < 10; i++) {
-        value = (int *)malloc(sizeof(int));
+        int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
-        insert_head(linked_list, value);
+        sprintf(s, "%d", i * 2);
+        insert_head(linked_list, s, value);
     }
 
     TEST_ASSERT_EQUAL(10, linked_list->size);
@@ -63,16 +65,17 @@ static void test_pop_tail(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    int *value;
+    char s[2];
     for (int i = 0; i < 10; i++) {
-        value = (int *)malloc(sizeof(int));
+        int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
-        append(linked_list, value);
+        sprintf(s, "%d", i * 2);
+        append(linked_list, s, value);
     }
 
     int *result;
     for (int i = 0; i < 5; i++) {
-        pop_tail(linked_list, &result);
+        pop_tail(linked_list, s, &result);
     }
 
     TEST_ASSERT_EQUAL(5, linked_list->size);
@@ -85,16 +88,17 @@ static void test_pop_head(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    int *value;
+    char s[3];
     for (int i = 0; i < 10; i++) {
-        value = (int *)malloc(sizeof(int));
+        int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
-        append(linked_list, value);
+        sprintf(s, "%d", i * 2);
+        append(linked_list, s, value);
     }
 
     int *result;
     for (int i = 0; i < 5; i++) {
-        pop_head(linked_list, &result);
+        pop_head(linked_list, s, &result);
     }
 
     TEST_ASSERT_EQUAL(5, linked_list->size);
@@ -102,13 +106,56 @@ static void test_pop_head(void) {
     show_int_linked_list(linked_list);
 }
 
+static void test_find_element(void) {
+    LinkedList *linked_list = new_linked_list();
+
+    TEST_ASSERT_NOT_NULL(linked_list);
+
+    char key[3], value[3];
+    for (int i = 0; i < 10; i++) {
+        sprintf(key, "%d", i);
+        sprintf(value, "%d", i * 2);
+        append(linked_list, key, value);
+    }
+
+    int res = find(linked_list, "5", value);
+    TEST_ASSERT_EQUAL(0, res);
+
+    res = find(linked_list, "10", value);
+    TEST_ASSERT_EQUAL(-1, res);
+}
+
+static void test_delete_element(void) {
+    LinkedList *linked_list = new_linked_list();
+
+    TEST_ASSERT_NOT_NULL(linked_list);
+
+    char key[3], value[3];
+    for (int i = 0; i < 10; i++) {
+        sprintf(key, "%d", i);
+        sprintf(value, "%d", i * 2);
+        append(linked_list, key, value);
+    }
+
+    int res = delete(linked_list, "4", value);
+    TEST_ASSERT_EQUAL(0, res);
+    TEST_ASSERT_EQUAL(9, linked_list->size);
+
+    res = delete(linked_list, "15", value);
+    TEST_ASSERT_EQUAL(-1, res);
+    TEST_ASSERT_EQUAL(9, linked_list->size);
+
+}
+
 int main() {
-    UnityBegin("test/test_stack.c");
+    UnityBegin("test/test_linked_list.c");
 
     RUN_TEST(test_append_value);
     RUN_TEST(test_insert_head);
     RUN_TEST(test_pop_tail);
     RUN_TEST(test_pop_head);
+    RUN_TEST(test_find_element);
+    RUN_TEST(test_delete_element);
 
     return UnityEnd();
 }
