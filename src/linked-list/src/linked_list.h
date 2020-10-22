@@ -21,16 +21,16 @@ LinkedList *new_linked_list(void);
 
 bool is_linked_list_empty(LinkedList *linked_list);
 
-void append(LinkedList *linked_list, char *key, void *value);
+void insert_linked_list_tail(LinkedList *linked_list, char *key, void *value);
 
-void insert_head(LinkedList *linked_list, char *key, void *value);
+void insert_linked_list_head(LinkedList *linked_list, char *key, void *value);
 
-int pop_head(LinkedList *linked_list, char *key, void *result);
+int pop_linked_list_head(LinkedList *linked_list, char *key, void *result);
 
-int pop_tail(LinkedList *linked_list, char *key, void *result);
+int pop_linked_list_tail(LinkedList *linked_list, char *key, void *result);
 
-int find(LinkedList *linked_list, char *key, void *result);
+int find_linked_list(LinkedList *linked_list, char *key, void *result);
 
-int delete(LinkedList *linked_list, char *key, void *result);
+int delete_linked_list_node(LinkedList *linked_list, char *key, void *result);
 
 #endif

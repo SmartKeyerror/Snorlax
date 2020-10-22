@@ -24,7 +24,7 @@ static void show_int_linked_list(LinkedList *linked_list) {
     }
 }
 
-static void test_append_value(void) {
+static void test_insert_linked_list_tail_value(void) {
     LinkedList *linked_list = new_linked_list();
 
     TEST_ASSERT_NOT_NULL(linked_list);
@@ -34,7 +34,7 @@ static void test_append_value(void) {
         int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
         sprintf(s, "%d", i * 2);
-        append(linked_list, s, value);
+        insert_linked_list_tail(linked_list, s, value);
     }
 
     TEST_ASSERT_EQUAL(10, linked_list->size);
@@ -42,7 +42,7 @@ static void test_append_value(void) {
     show_int_linked_list(linked_list);
 }
 
-static void test_insert_head(void) {
+static void test_insert_linked_list_head(void) {
     LinkedList *linked_list = new_linked_list();
 
     TEST_ASSERT_NOT_NULL(linked_list);
@@ -52,7 +52,7 @@ static void test_insert_head(void) {
         int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
         sprintf(s, "%d", i * 2);
-        insert_head(linked_list, s, value);
+        insert_linked_list_head(linked_list, s, value);
     }
 
     TEST_ASSERT_EQUAL(10, linked_list->size);
@@ -60,7 +60,7 @@ static void test_insert_head(void) {
     show_int_linked_list(linked_list);
 }
 
-static void test_pop_tail(void) {
+static void test_pop_linked_list_tail(void) {
     LinkedList *linked_list = new_linked_list();
 
     TEST_ASSERT_NOT_NULL(linked_list);
@@ -70,12 +70,12 @@ static void test_pop_tail(void) {
         int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
         sprintf(s, "%d", i * 2);
-        append(linked_list, s, value);
+        insert_linked_list_tail(linked_list, s, value);
     }
 
     int *result;
     for (int i = 0; i < 5; i++) {
-        pop_tail(linked_list, s, &result);
+        pop_linked_list_tail(linked_list, s, &result);
     }
 
     TEST_ASSERT_EQUAL(5, linked_list->size);
@@ -83,7 +83,7 @@ static void test_pop_tail(void) {
     show_int_linked_list(linked_list);
 }
 
-static void test_pop_head(void) {
+static void test_pop_linked_list_head(void) {
     LinkedList *linked_list = new_linked_list();
 
     TEST_ASSERT_NOT_NULL(linked_list);
@@ -93,12 +93,12 @@ static void test_pop_head(void) {
         int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
         sprintf(s, "%d", i * 2);
-        append(linked_list, s, value);
+        insert_linked_list_tail(linked_list, s, value);
     }
 
     int *result;
     for (int i = 0; i < 5; i++) {
-        pop_head(linked_list, s, &result);
+        pop_linked_list_head(linked_list, s, &result);
     }
 
     TEST_ASSERT_EQUAL(5, linked_list->size);
@@ -115,13 +115,13 @@ static void test_find_element(void) {
     for (int i = 0; i < 10; i++) {
         sprintf(key, "%d", i);
         sprintf(value, "%d", i * 2);
-        append(linked_list, key, value);
+        insert_linked_list_tail(linked_list, key, value);
     }
 
-    int res = find(linked_list, "5", value);
+    int res = find_linked_list(linked_list, "5", value);
     TEST_ASSERT_EQUAL(0, res);
 
-    res = find(linked_list, "10", value);
+    res = find_linked_list(linked_list, "10", value);
     TEST_ASSERT_EQUAL(-1, res);
 }
 
@@ -134,14 +134,14 @@ static void test_delete_element(void) {
     for (int i = 0; i < 10; i++) {
         sprintf(key, "%d", i);
         sprintf(value, "%d", i * 2);
-        append(linked_list, key, value);
+        insert_linked_list_tail(linked_list, key, value);
     }
 
-    int res = delete(linked_list, "4", value);
+    int res = delete_linked_list_node(linked_list, "4", value);
     TEST_ASSERT_EQUAL(0, res);
     TEST_ASSERT_EQUAL(9, linked_list->size);
 
-    res = delete(linked_list, "15", value);
+    res = delete_linked_list_node(linked_list, "15", value);
     TEST_ASSERT_EQUAL(-1, res);
     TEST_ASSERT_EQUAL(9, linked_list->size);
 
@@ -150,10 +150,10 @@ static void test_delete_element(void) {
 int main() {
     UnityBegin("test/test_linked_list.c");
 
-    RUN_TEST(test_append_value);
-    RUN_TEST(test_insert_head);
-    RUN_TEST(test_pop_tail);
-    RUN_TEST(test_pop_head);
+    RUN_TEST(test_insert_linked_list_tail_value);
+    RUN_TEST(test_insert_linked_list_head);
+    RUN_TEST(test_pop_linked_list_tail);
+    RUN_TEST(test_pop_linked_list_head);
     RUN_TEST(test_find_element);
     RUN_TEST(test_delete_element);
 

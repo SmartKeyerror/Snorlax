@@ -55,7 +55,7 @@ bool is_linked_list_empty(LinkedList *linked_list) {
 /*
  * 向链表尾部添加元素
  */
-void append(LinkedList *linked_list, char *key, void *value) {
+void insert_linked_list_tail(LinkedList *linked_list, char *key, void *value) {
     ListNode *tail_node = new_list_node(key, value, linked_list->dummy_tail->prev, linked_list->dummy_tail);
 
     linked_list->dummy_tail->prev->next = tail_node;
@@ -67,7 +67,7 @@ void append(LinkedList *linked_list, char *key, void *value) {
 /*
  * 向链表头部添加元素
  */
-void insert_head(LinkedList *linked_list, char *key, void *value) {
+void insert_linked_list_head(LinkedList *linked_list, char *key, void *value) {
 
     ListNode *head_node = new_list_node(key, value, linked_list->dummy_head, linked_list->dummy_head->next);
 
@@ -80,7 +80,7 @@ void insert_head(LinkedList *linked_list, char *key, void *value) {
 /*
  * 删除链表头元素并返回
  */
-int pop_head(LinkedList *linked_list, char *key, void *result) {
+int pop_linked_list_head(LinkedList *linked_list, char *key, void *result) {
 
     if (is_linked_list_empty(linked_list)) return FAIL;
 
@@ -101,7 +101,7 @@ int pop_head(LinkedList *linked_list, char *key, void *result) {
 /*
  * 删除链表尾元素并返回
  */
-int pop_tail(LinkedList *linked_list, char *key, void *result) {
+int pop_linked_list_tail(LinkedList *linked_list, char *key, void *result) {
 
     if (is_linked_list_empty(linked_list)) return FAIL;
 
@@ -122,7 +122,7 @@ int pop_tail(LinkedList *linked_list, char *key, void *result) {
 /*
  * 查找key为某一个值的元素
  */
-int find(LinkedList *linked_list, char *key, void *result) {
+int find_linked_list(LinkedList *linked_list, char *key, void *result) {
     if (is_linked_list_empty(linked_list)) return FAIL;
 
     ListNode *current = linked_list->dummy_head->next;
@@ -140,7 +140,7 @@ int find(LinkedList *linked_list, char *key, void *result) {
 /*
  * 删除key为某一个值的元素
  */
-int delete(LinkedList *linked_list, char *key, void *result) {
+int delete_linked_list_node(LinkedList *linked_list, char *key, void *result) {
     if (is_linked_list_empty(linked_list)) return FAIL;
 
     ListNode *current = linked_list->dummy_head->next;
