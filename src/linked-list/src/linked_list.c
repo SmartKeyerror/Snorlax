@@ -68,12 +68,6 @@ void append(LinkedList *linked_list, void *value) {
  */
 void insert_head(LinkedList *linked_list, void *value) {
 
-    // 特殊情况： 链表为空
-    if (linked_list->dummy_head->next == linked_list->dummy_tail) {
-        append(linked_list, value);
-        return ;
-    }
-
     ListNode *head_node = new_list_node(value, linked_list->dummy_head, linked_list->dummy_head->next);
 
     linked_list->dummy_head->next->prev = head_node;
