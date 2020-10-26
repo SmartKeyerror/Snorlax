@@ -8,7 +8,7 @@ typedef struct list_node {
     struct list_node *next;     // 后继节点
     struct list_node *prev;     // 前驱节点
     void *value;                // 链表节点实际存储的值value
-    char key[];                 // 链表节点字符串形式的key
+    char key[];                 // 链表节点字符串形式的key(当然，也可以使用 char *，只不过在申请和释放内存空间时少许麻烦而已)
 } ListNode;
 
 typedef struct linked_list {
