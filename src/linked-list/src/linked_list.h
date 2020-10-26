@@ -33,4 +33,6 @@ void *find_linked_list(LinkedList *linked_list, char *key);
 
 void *delete_linked_list_node(LinkedList *linked_list, char *key);
 
+void free_linked_list(linked_list);
+
 #endif

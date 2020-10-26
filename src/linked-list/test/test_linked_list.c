@@ -39,7 +39,9 @@ static void test_insert_linked_list_tail_value(void) {
 
     TEST_ASSERT_EQUAL(10, linked_list->size);
 
-    show_int_linked_list(linked_list);
+    // show_int_linked_list(linked_list);
+
+    free_linked_list(linked_list);
 }
 
 static void test_insert_linked_list_head(void) {
@@ -57,7 +59,9 @@ static void test_insert_linked_list_head(void) {
 
     TEST_ASSERT_EQUAL(10, linked_list->size);
 
-    show_int_linked_list(linked_list);
+    // show_int_linked_list(linked_list);
+
+    free_linked_list(linked_list);
 }
 
 static void test_pop_linked_list_tail(void) {
@@ -80,7 +84,9 @@ static void test_pop_linked_list_tail(void) {
 
     TEST_ASSERT_EQUAL(5, linked_list->size);
 
-    show_int_linked_list(linked_list);
+    // show_int_linked_list(linked_list);
+
+    free_linked_list(linked_list);
 }
 
 static void test_pop_linked_list_head(void) {
@@ -103,7 +109,9 @@ static void test_pop_linked_list_head(void) {
 
     TEST_ASSERT_EQUAL(5, linked_list->size);
 
-    show_int_linked_list(linked_list);
+    // show_int_linked_list(linked_list);
+
+    free_linked_list(linked_list);
 }
 
 static void test_find_element(void) {
@@ -125,6 +133,8 @@ static void test_find_element(void) {
 
     res = find_linked_list(linked_list, "20");
     TEST_ASSERT_EQUAL(NULL, res);
+
+    free_linked_list(linked_list);
 }
 
 static void test_delete_element(void) {
@@ -148,6 +158,8 @@ static void test_delete_element(void) {
     res = delete_linked_list_node(linked_list, "15");
     TEST_ASSERT_EQUAL(NULL, res);
     TEST_ASSERT_EQUAL(9, linked_list->size);
+
+    free_linked_list(linked_list);
 
 }
 
