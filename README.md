@@ -11,3 +11,4 @@
 - [堆: 堆排序、TopK、计算百分位数，我的能量超乎你想象](https://github.com/SmartKeyerror/Snorlax/tree/master/src/heap)
 - [环形队列: 我吃我自己](https://github.com/SmartKeyerror/Snorlax/tree/master/src/circular-buffer)
 - [二分搜索树: 简简单单，描述二叉树所有的性质](https://github.com/SmartKeyerror/Snorlax/tree/master/src/search-tree)
+- [栈: C泛型栈如何实现?](https://github.com/SmartKeyerror/Snorlax/tree/master/src/stack)
