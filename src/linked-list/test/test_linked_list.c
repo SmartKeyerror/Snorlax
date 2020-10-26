@@ -29,7 +29,7 @@ static void test_insert_linked_list_tail_value(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    char s[2];
+    char s[3];
     for (int i = 0; i < 10; i++) {
         int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
@@ -47,7 +47,7 @@ static void test_insert_linked_list_head(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    char s[2];
+    char s[3];
     for (int i = 0; i < 10; i++) {
         int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
@@ -65,7 +65,7 @@ static void test_pop_linked_list_tail(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    char s[2];
+    char s[3];
     for (int i = 0; i < 10; i++) {
         int *value = (int *)malloc(sizeof(int));
         memcpy(value, &i, sizeof(int));
@@ -75,7 +75,7 @@ static void test_pop_linked_list_tail(void) {
 
     int *result;
     for (int i = 0; i < 5; i++) {
-        pop_linked_list_tail(linked_list, s, &result);
+        result = pop_linked_list_tail(linked_list, s);
     }
 
     TEST_ASSERT_EQUAL(5, linked_list->size);
@@ -98,7 +98,7 @@ static void test_pop_linked_list_head(void) {
 
     int *result;
     for (int i = 0; i < 5; i++) {
-        pop_linked_list_head(linked_list, s, &result);
+        result = pop_linked_list_head(linked_list, s);
     }
 
     TEST_ASSERT_EQUAL(5, linked_list->size);
@@ -111,18 +111,20 @@ static void test_find_element(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    char key[3], value[3];
+    char s[3];
     for (int i = 0; i < 10; i++) {
-        sprintf(key, "%d", i);
-        sprintf(value, "%d", i * 2);
-        insert_linked_list_tail(linked_list, key, value);
+        int *value = (int *)malloc(sizeof(int));
+        memcpy(value, &i, sizeof(int));
+        sprintf(s, "%d", i * 2);
+        insert_linked_list_tail(linked_list, s, value);
     }
 
-    int res = find_linked_list(linked_list, "5", value);
-    TEST_ASSERT_EQUAL(0, res);
+    int *res;
+    res = find_linked_list(linked_list, "12");
+    TEST_ASSERT_EQUAL(6, *res);
 
-    res = find_linked_list(linked_list, "10", value);
-    TEST_ASSERT_EQUAL(-1, res);
+    res = find_linked_list(linked_list, "20");
+    TEST_ASSERT_EQUAL(NULL, res);
 }
 
 static void test_delete_element(void) {
@@ -130,19 +132,21 @@ static void test_delete_element(void) {
 
     TEST_ASSERT_NOT_NULL(linked_list);
 
-    char key[3], value[3];
+    char s[3];
     for (int i = 0; i < 10; i++) {
-        sprintf(key, "%d", i);
-        sprintf(value, "%d", i * 2);
-        insert_linked_list_tail(linked_list, key, value);
+        int *value = (int *)malloc(sizeof(int));
+        memcpy(value, &i, sizeof(int));
+        sprintf(s, "%d", i * 2);
+        insert_linked_list_tail(linked_list, s, value);
     }
 
-    int res = delete_linked_list_node(linked_list, "4", value);
-    TEST_ASSERT_EQUAL(0, res);
+    int *res;
+    res = delete_linked_list_node(linked_list, "4");
+    TEST_ASSERT_EQUAL(2, *res);
     TEST_ASSERT_EQUAL(9, linked_list->size);
 
-    res = delete_linked_list_node(linked_list, "15", value);
-    TEST_ASSERT_EQUAL(-1, res);
+    res = delete_linked_list_node(linked_list, "15");
+    TEST_ASSERT_EQUAL(NULL, res);
     TEST_ASSERT_EQUAL(9, linked_list->size);
 
 }

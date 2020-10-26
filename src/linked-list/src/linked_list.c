@@ -10,7 +10,7 @@
 #define FAIL -1
 
 ListNode *new_list_node(char *key, void *value, ListNode *prev, ListNode *next) {
-    ListNode *node = (ListNode *)malloc(sizeof(ListNode) + strlen(key) + 1);    // 预留 NUL 的位置
+    ListNode *node = (ListNode *)malloc(sizeof(ListNode) + strlen(key) + sizeof(char));    // 预留 NUL 的位置
 
     if (node == NULL) {
         perror("malloc linked list node failed");
@@ -78,15 +78,15 @@ void insert_linked_list_head(LinkedList *linked_list, char *key, void *value) {
 }
 
 /*
- * 删除链表头元素并返回
+ * 删除链表头元素并返回, 函数返回value值， key写入传入的指针
  */
-int pop_linked_list_head(LinkedList *linked_list, char *key, void *result) {
+void *pop_linked_list_head(LinkedList *linked_list, char *key) {
 
-    if (is_linked_list_empty(linked_list)) return FAIL;
+    if (is_linked_list_empty(linked_list)) return NULL;
 
     ListNode *head_node = linked_list->dummy_head->next;
 
-    memcpy(result, head_node->value, sizeof(head_node->value));
+    void *result = head_node->value;
     strcpy(key, head_node->key);
 
     linked_list->dummy_head->next = head_node->next;
@@ -95,19 +95,19 @@ int pop_linked_list_head(LinkedList *linked_list, char *key, void *result) {
     free(head_node);
     linked_list->size--;
 
-    return SUCCESS;
+    return result;
 }
 
 /*
- * 删除链表尾元素并返回
+ * 删除链表尾元素并返回, 函数返回value值， key写入传入的指针
  */
-int pop_linked_list_tail(LinkedList *linked_list, char *key, void *result) {
+void *pop_linked_list_tail(LinkedList *linked_list, char *key) {
 
-    if (is_linked_list_empty(linked_list)) return FAIL;
+    if (is_linked_list_empty(linked_list)) return NULL;
 
     ListNode *tail_node = linked_list->dummy_tail->prev;
 
-    memcpy(result, tail_node->value, sizeof(tail_node->value));
+    void *result = tail_node->value;
     strcpy(key, tail_node->key);
 
     linked_list->dummy_tail->prev = tail_node->prev;
@@ -116,32 +116,31 @@ int pop_linked_list_tail(LinkedList *linked_list, char *key, void *result) {
     free(tail_node);
     linked_list->size--;
 
-    return SUCCESS;
+    return result;
 }
 
 /*
  * 查找key为某一个值的元素
  */
-int find_linked_list(LinkedList *linked_list, char *key, void *result) {
-    if (is_linked_list_empty(linked_list)) return FAIL;
+void *find_linked_list(LinkedList *linked_list, char *key) {
+    if (is_linked_list_empty(linked_list)) return NULL;
 
     ListNode *current = linked_list->dummy_head->next;
 
     while (current != linked_list->dummy_tail) {
         if (strcmp(current->key, key) == 0) {
-            memcpy(result, current->value, sizeof(current->value));
-            return SUCCESS;
+            return current->value;
         }
         current = current->next;
     }
-    return FAIL;
+    return NULL;
 }
 
 /*
- * 删除key为某一个值的元素
+ * 删除key为某一个值的元素并返回其值
  */
-int delete_linked_list_node(LinkedList *linked_list, char *key, void *result) {
-    if (is_linked_list_empty(linked_list)) return FAIL;
+void *delete_linked_list_node(LinkedList *linked_list, char *key) {
+    if (is_linked_list_empty(linked_list)) return NULL;
 
     ListNode *current = linked_list->dummy_head->next;
 
@@ -150,14 +149,30 @@ int delete_linked_list_node(LinkedList *linked_list, char *key, void *result) {
             
             current->prev->next = current->next;
             current->next->prev = current->prev;
-            memcpy(result, current->value, sizeof(current->value));
+            
+            void *result = current->value;
             
             free(current);
             linked_list->size--;
 
-            return SUCCESS;
+            return result;
         }
         current = current->next;
     }
-    return FAIL;
+    return NULL;
+}
+
+/*
+ * 释放整个链表
+ */
+void free_linked_list(LinkedList *linked_list) {
+    ListNode *tail_node = linked_list->dummy_tail;
+
+    while (tail_node != NULL) {
+        ListNode *previous = tail_node->prev;
+        free(tail_node);
+        tail_node = previous;
+    }
+
+    linked_list = NULL;
 }

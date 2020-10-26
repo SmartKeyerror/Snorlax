@@ -25,12 +25,12 @@ void insert_linked_list_tail(LinkedList *linked_list, char *key, void *value);
 
 void insert_linked_list_head(LinkedList *linked_list, char *key, void *value);
 
-int pop_linked_list_head(LinkedList *linked_list, char *key, void *result);
+void *pop_linked_list_head(LinkedList *linked_list, char *key);
 
-int pop_linked_list_tail(LinkedList *linked_list, char *key, void *result);
+void *pop_linked_list_tail(LinkedList *linked_list, char *key);
 
-int find_linked_list(LinkedList *linked_list, char *key, void *result);
+void *find_linked_list(LinkedList *linked_list, char *key);
 
-int delete_linked_list_node(LinkedList *linked_list, char *key, void *result);
+void *delete_linked_list_node(LinkedList *linked_list, char *key);
 
 #endif
