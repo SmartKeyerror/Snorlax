@@ -4,3 +4,4 @@
 **/tests.out
 *.gch
 env/
+*.out
