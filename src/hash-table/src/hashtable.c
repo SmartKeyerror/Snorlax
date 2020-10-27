@@ -56,6 +56,10 @@ static int expand_hash_table(HashTable *hash_table);
 static void rehash(HashTable *hash_table, HashElement **new_table, unsigned int new_capacity);
 
 int hash_table_put(HashTable *hash_table, char *key, void *value) {
+
+    if (key == NULL)
+        return FAIL;
+
     unsigned int index = hash_calc(key, strlen(key)) % hash_table->capacity;
 
     HashElement *element = hash_table->table[index];

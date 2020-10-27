@@ -49,6 +49,8 @@ void static test_hash_table_update(void) {
     project = hash_table_get(hash_table, "project");
 
     TEST_ASSERT_EQUAL(0, strcmp(project, "snorlax"));
+
+    free_hash_table(hash_table);
 }
 
 void static test_hash_table_remove(void) {
@@ -65,6 +67,8 @@ void static test_hash_table_remove(void) {
     TEST_ASSERT_EQUAL(NULL, profession);
 
     TEST_ASSERT_EQUAL(1, hash_table->size);
+
+    free_hash_table(hash_table);
 }
 
 void test_expand_hash_table(void) {
@@ -80,6 +84,8 @@ void test_expand_hash_table(void) {
 
     char *result = hash_table_get(hash_table, random_buffer);
     TEST_ASSERT_NOT_NULL(result);
+
+    free_hash_table(hash_table);
 }
 
 
