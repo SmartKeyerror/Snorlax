@@ -206,30 +206,29 @@ C 语言描述 Hibbard-Deletion 还是比较麻烦的，Java 版的更加简洁�
 
 ```cpp
 void levelorder(BinaryTree *binary_tree) {
-    
-    // 使用双向链表作为队列的实现
     LinkedList *queue = new_linked_list();
     if (queue == NULL) return;
 
     Node *current_root = binary_tree->root;
 
-    insert_head(queue, &current_root);
+    insert_linked_list_head(queue, "", current_root);
 
+    char key[1];
     Node *process_node;
 
     printf("level order: ");
 
     while (!is_linked_list_empty(queue)) {
-        pop_tail(queue, &process_node);
+        process_node = pop_linked_list_tail(queue, key);
 
         printf("%d, ", process_node->key);
 
         if (process_node->left != NULL) {
-            insert_head(queue, &process_node->left);
+            insert_linked_list_head(queue, "", process_node->left);
         }
 
         if (process_node->right != NULL) {
-            insert_head(queue, &process_node->right);
+            insert_linked_list_head(queue, "", process_node->right);
         }
     }
     printf("\n");
