@@ -12,3 +12,4 @@
 - [环形队列: 我吃我自己](https://github.com/SmartKeyerror/Snorlax/tree/master/src/circular-buffer)
 - [二分搜索树: 简简单单，描述二叉树所有的性质](https://github.com/SmartKeyerror/Snorlax/tree/master/src/search-tree)
 - [栈: C泛型栈如何实现?](https://github.com/SmartKeyerror/Snorlax/tree/master/src/stack)
+- [哈希表: 感受数组的魅力](https://github.com/SmartKeyerror/Snorlax/tree/master/src/hash-table)
