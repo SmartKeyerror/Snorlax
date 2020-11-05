@@ -26,12 +26,12 @@ private:
 
     void permute(int n, int usedLeftNums, int usedRightNums, string &selected) {
 
+        if (usedLeftNums < usedRightNums) return;
+
         if (usedLeftNums == usedRightNums && usedRightNums == n) {
             result.push_back(selected);
             return;
         }
-
-        if (usedLeftNums < usedRightNums) return;
 
         if (usedLeftNums < n) {
             selected.push_back('(');
