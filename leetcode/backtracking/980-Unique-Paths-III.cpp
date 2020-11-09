@@ -6,6 +6,7 @@ using namespace std;
 
 /*
  * 暴力回溯，无剪枝
+ * Runtime: 8 ms, faster than 30.27% of C++ online submissions for Unique Paths III.
  */
 class Solution {
     vector<vector<int>> delta = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
