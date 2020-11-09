@@ -21,9 +21,11 @@ class Solution {
 
     void dfs(vector<vector<int>>& grid, int x, int y, int total) {
         
-        if (x == ending[0] && y == ending[1] && total_zero == total - 1)
+        if (x == ending[0] && y == ending[1] && total_zero == total - 1) {
             result++;
-        
+            return;
+        }
+
         for (int i = 0; i < 4; i++) {
             int newx = x + delta[i][0];
             int newy = y + delta[i][1];
