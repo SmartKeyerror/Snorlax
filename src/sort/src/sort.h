@@ -14,4 +14,6 @@ void bubble_sort(elementType list[], size_t length, bool (*compare)(elementType 
 
 void insertion_sort(elementType list[], size_t length, bool (*compare)(elementType a, elementType b));
 
+void merge_sort(elementType list[], size_t length, bool (*compare)(elementType a, elementType b));
+
 #endif
