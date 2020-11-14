@@ -43,6 +43,8 @@ void backtracking(vecotr<int> choices, vector<int> selected) {
 
 ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/permutation.png)
 
+![](permutation.png)
+
 左图中描述了确切的选择过程，而右图中则描述了选择以及回溯(撤销选择)的过程。现在，我们可以使用代码来解决这个全排列问题了。
 
 ```cpp
