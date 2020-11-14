@@ -41,9 +41,8 @@ void backtracking(vecotr<int> choices, vector<int> selected) {
 
 如果以一棵树来表示的话，就是下面的样子:
 
-![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/permutation.png)
 
-![](permutation.png)
+![](images/permutation.png)
 
 左图中描述了确切的选择过程，而右图中则描述了选择以及回溯(撤销选择)的过程。现在，我们可以使用代码来解决这个全排列问题了。
 
@@ -110,7 +109,8 @@ leetcode 中的 [77. Combinations](https://leetcode.com/problems/combinations/) 
 
 > 给定两个整数 n 和 k，返回 1 ...n 中所有可能的 k 个数的组合
 
-![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/combination.png)
+<!-- ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/combination.png) -->
+![](images/combination.png)
 
 可以看到，组合问题和排列问题唯一的差别就在于当我们选择了某一个元素之后，在这之前的所有元素均不可被选择，这是因为前面的元素一定已经生成了对应的组合。
 
@@ -163,7 +163,8 @@ Output: [[1, 1, 2], [1, 2, 1], [2, 1, 1]]
 
 一种解决方案就是不管数组中有没有重复元素，按照原有的流程将所有的排列输出，然后再进行排序去重，这一定是一个可行解。但是，既然我们需要对结果进行排序，为什么不对原有的数组进行排序，然后在回溯的过程中进行去重呢? 
 
-![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/047-permutations-II-Explain.png)
+<!-- ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/047-permutations-II-Explain.png) -->
+![](images/047-permutations-II-Explain.png)
 
 如上图所示，我们首先对原有数组进行排序。而后在每一次选择时都去判断当前元素是否和前一个元素相同，以及在相同的条件下，前一个元素是否被使用。若结果为 `true`，将跳过当前元素。
 
@@ -186,7 +187,8 @@ Output: [[1, 1, 2], [1, 2, 1], [2, 1, 1]]
 
 下面给出分析图示:
 
-![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/search-string.png)
+<!-- ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/search-string.png) -->
+![](images/search-string.png)
 
 选择树，或者说决策树与排列、组合问题并没有什么不同，只不过选择的方向固定为上、下、左、右。同时我们的 `visited` 数组也需要设置成一个二维数组。
 
@@ -204,7 +206,8 @@ Flood fill 算法又称为漫水填充算法，在扫雷游戏中用于计算需
 
 在 [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) 该题中我们就可以使用 Flood fill 算法来完成。相较于排列和组合问题有着明显的递归终止条件，Flood fill 算法则需要确保所有选择过的元素的 4 个方向上的元素均被访问并标记过，除非遇到边界。
 
-![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/island.png)
+<!-- ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/island.png) -->
+![](images/island.png)
 
 题解:
 > https://github.com/SmartKeyerror/Snorlax/blob/master/leetcode/depth-first-search/200-Number-of-Islands.cpp
@@ -216,7 +219,8 @@ Flood fill 算法又称为漫水填充算法，在扫雷游戏中用于计算需
 
 有时候我们会默认为回溯法的选择路径是一棵多叉树，而忽略了最基本的情况: 二叉树。相较于二叉树的遍历，回溯在其中的应用并不是很多，一个比较典型的问题就是输出二叉树从根节点到所有叶子节点的路径，例如:
 
-![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/binary-paths.png)
+<!-- ![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/binary-paths.png) -->
+![](images/binary-paths.png)
 
 代码也非常简单:
 
@@ -266,6 +270,3 @@ https://github.com/SmartKeyerror/Snorlax/tree/master/leetcode/prune
 
 
 <div align=center><img src="https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/forerver-maze.gif"/></div>
-
-
-
