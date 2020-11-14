@@ -269,4 +269,5 @@ leetcode 关于回溯这一话题的全部题目:
 https://github.com/SmartKeyerror/Snorlax/tree/master/leetcode/prune
 
 
-<div align=center><img src="https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/forerver-maze.gif"/></div>
+<!-- <div align=center><img src="https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/forerver-maze.gif"/></div> -->
+![](images/forerver-maze.gif)
