@@ -32,10 +32,8 @@ void backtracking(vecotr<int> choices, vector<int> selected) {
 
 下面使用一道非常经典的排列问题来更加具体的描述回溯法，题目如下:
 
+
 > 给定一个没有重复数字的序列，返回其所有可能的全排列
-Example:
-Input: nums = [1,2,3]
-Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 
 即求解给定数组中元素的所有排列，根据高中数学知识，n 个元素所有的排列个数为 n!，只不过题目需要输出所有的具体排列方式。
 
@@ -156,8 +154,10 @@ public:
 
 一个比较经典的剪枝问题就是求拥有重复元素的全排列问题，在 [47. Permutations II](https://leetcode.com/problems/permutations-ii/) 有具体描述。
 
-> Input: nums = [1,1,2]
+```bash
+Input: nums = [1,1,2]
 Output: [[1, 1, 2], [1, 2, 1], [2, 1, 1]]
+```
 
 一种解决方案就是不管数组中有没有重复元素，按照原有的流程将所有的排列输出，然后再进行排序去重，这一定是一个可行解。但是，既然我们需要对结果进行排序，为什么不对原有的数组进行排序，然后在回溯的过程中进行去重呢? 
 
@@ -196,7 +196,7 @@ Output: [[1, 1, 2], [1, 2, 1], [2, 1, 1]]
 
 Flood fill 算法又称为漫水填充算法，在扫雷游戏中用于计算需要被清除的区域。
 
-![ | center](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/Recursive_Flood_Fill_4_%28aka%29.gif)
+<div align=center><img src="https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/Recursive_Flood_Fill_4_%28aka%29.gif"/></div>
 
 上图为 wikipedia 对 Flood fill 的 GIF 示例。其中白色部分我们需要对其进行着色，黑色部分为着色的边界，从中心点开始向下滴一滴墨水，墨水所散开的区域就是我们需要着色的区域。
 
@@ -262,4 +262,8 @@ leetcode 关于回溯这一话题的全部题目:
 > https://github.com/SmartKeyerror/Snorlax/tree/master/leetcode/backtracking
 https://github.com/SmartKeyerror/Snorlax/tree/master/leetcode/prune
 
-![ @🤪 |center ](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/forerver-maze.gif)
+
+<div align=center><img src="https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/backtracing/forerver-maze.gif"/></div>
+
+
+
