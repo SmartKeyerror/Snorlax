@@ -44,7 +44,7 @@ private:
 public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
         
-        if (inorder.size() != postorder.size() || inorder.size() == 0 && postorder.size() == 0)
+        if (inorder.size() != postorder.size() || (inorder.size() == 0 && postorder.size() == 0))
             return nullptr;
         
         unordered_map<int, int> inRecord;
