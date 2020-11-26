@@ -10,7 +10,6 @@ void __merge(elementType list[], int left, int mid, int right, bool (*compare)(e
     elementType auxiliary[right-left+1];
 
     // 我们需要做的事情是将辅助数组中的元素逐一地放置在原数组中，所以辅助数组的初始数据必须和原子数组相同
-    // 可以遇见，在不断的 merge 过程中，原数组不断地趋近于有序。最终，原数组将被分割成左、右两个有序子序列
     for (int i = left; i <= right; i++) {
         auxiliary[i-left] = list[i];
     }
