@@ -7,7 +7,7 @@ class Solution {
 
 private:
 
-    vector<int> memeory;
+    vector<int> memory;
 
     int max3(int a, int b, int c) {
         return max(max(a, b), c);
@@ -24,8 +24,8 @@ private:
         if (index == nums.size() - 1)
             return nums[index];
         
-        if (memeory[index] != -1)
-            return memeory[index];
+        if (memory[index] != -1)
+            return memory[index];
         
         int res = 0;
         for (int i = index; i < nums.size(); i++) {
@@ -34,7 +34,7 @@ private:
             res = max3(res, nums[index] + robInterval(nums, index + 2), robInterval(nums, index + 1));
         }
         
-        memeory[index] = res;
+        memory[index] = res;
 
         return res;
     }
@@ -44,7 +44,7 @@ public:
     // 自顶向下的递归实现
     int rob(vector<int>& nums) {
 
-        memeory = vector<int>(nums.size(), -1);
+        memory = vector<int>(nums.size(), -1);
 
         return robInterval(nums, 0);
     }
@@ -58,20 +58,20 @@ public:
         if (nums.size() == 1)
             return nums[0];
 
-        vector<int> memeory = vector<int>(nums.size(), 0);
+        vector<int> memory = vector<int>(nums.size(), 0);
 
         // 只有一间房屋时只能洗劫这一间
-        memeory[0] = nums[0];
+        memory[0] = nums[0];
 
         // 有两间房屋时，选择一间
-        memeory[1] = max(nums[0], nums[1]);
+        memory[1] = max(nums[0], nums[1]);
 
         for (int i = 2; i < nums.size(); i++) {
-            // 对于第 i 间房屋而言，如果不选择洗劫，那么其最大收益值就是 memeory[i-1]
-            // 如果选择洗劫，那么最大值就是 nums[i] + memeory[i-2]
-            memeory[i] = max(memeory[i-1], nums[i] + memeory[i-2]);
+            // 对于第 i 间房屋而言，如果不选择洗劫，那么其最大收益值就是 memory[i-1]
+            // 如果选择洗劫，那么最大值就是 nums[i] + memory[i-2]
+            memory[i] = max(memory[i-1], nums[i] + memory[i-2]);
         }
 
-        return memeory[nums.size() - 1];
+        return memory[nums.size() - 1];
     }
 };
