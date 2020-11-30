@@ -17,14 +17,10 @@ class Solution {
     int left = 0, right = -1;
 
     while (left <= s.size() - 1) {
-      if (right + 1 < s.size() && visited.count(s[right + 1]) == 0) {
-        right++;
-        visited.insert(s[right]);
-      } 
-      else {
-        visited.erase(s[left]);
-        left++;
-      }
+      if (right + 1 < s.size() && visited.count(s[right + 1]) == 0)
+        visited.insert(s[++right]);
+      else
+        visited.erase(s[left++]);
 
       result = max(result, right - left + 1);
     }
