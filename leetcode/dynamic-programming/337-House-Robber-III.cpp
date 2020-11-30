@@ -30,7 +30,7 @@ struct TreeNode {
  * 
  * 如此一来，我们的状态转移方程就很清晰了: f(node) = max(V(node)+f(node.left.all)+f(node.right.all), f(node.left)+f(node.right))
  * 
- * 简单来说就是偷了当前根节点，那么只能去左右子节点的子节点进行偷取，否则，可以偷取左右子节点。
+ * 简单来说就是偷了当前根节点，那么只能去左右子节点的子节点进行偷取，否则，偷取左右子节点。
  */
 class Solution {
 private:
@@ -58,7 +58,7 @@ private:
 
         return maxValue;
     }
-    
+
 public:
     int rob(TreeNode* root) {
         return dfs(root);
