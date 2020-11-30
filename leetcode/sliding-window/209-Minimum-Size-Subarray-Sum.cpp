@@ -17,30 +17,22 @@ using namespace std;
 class Solution {
 public:
     int minSubArrayLen(int s, vector<int>& nums) {
-
-        if (nums.size() == 0)
-            return 0;
+        if (nums.size() == 0) return 0;
         
         // 起始时 sum 应该为0，那么该窗口应该不包含任何元素，所以 right 应为 -1
-        int sum = 0;
-        int left = 0; int right = -1;
+        int sum = 0, left = 0; int right = -1;
 
         // 求最短路径，所以使用 INT_MAX 作为 res 的初始值
         int res = INT_MAX;
 
         while ( left <= nums.size() - 1) {
-            if (right + 1 < nums.size() && sum < s) {
-                right ++;
-                sum += nums[right];
-            } else {
-                sum -= nums[left];
-                left++;
-            }
+            if (right + 1 < nums.size() && sum < s)
+                sum += nums[++right];
+            else
+                sum -= nums[left++];
 
-            if (sum >= s)
-                res = min(res, right - left + 1);
+            if (sum >= s) res = min(res, right - left + 1);
         }
-
         return res == INT_MAX ? 0: res;
     }
 };
