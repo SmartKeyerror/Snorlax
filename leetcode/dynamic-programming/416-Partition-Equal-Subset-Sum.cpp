@@ -46,9 +46,26 @@ class Solution {
         return false;
     }
 
+    bool dpDolution(vector<int>& nums) {
+
+        int target = accumulate(nums.begin(), nums.end(), 0);
+        if (target % 2 != 0) return false;
+        target = target / 2;
+
+        vector<bool> memory(target + 1, false);
+        memory[0] = true;
+
+        for (int i = 1; i <= nums.size(); i++)
+            for (int j = target; j >= nums[i-1]; j--)
+                memory[j] = memory[j] || memory[j-nums[i-1]];
+    
+        return memory[target];
+    }
+
 
 public:
     bool canPartition(vector<int>& nums) {
-        return backtrackingSolution(nums);
+        // return backtrackingSolution(nums);
+        return dpDolution(nums);
     }
 };
