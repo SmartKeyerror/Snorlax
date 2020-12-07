@@ -54,6 +54,36 @@ private:
         return result;
     }
 
+    int dpSolution(const vector<int> &weight, const vector<int> &value, int capacity) {
+        vector<vector<int>> memory(weight.size(), vector<int>(capacity + 1, 0));
+
+        // 处理边界条件, 当然也可以在下面的循环中处理
+        for (int i = 0; i <= capacity; i++)
+            memory[0][i] = (i >= weight[0] ? value[0]: 0);
+        
+        for (int i = 1; i < memory.size(); i++) {
+            for (int j = 0; j <= capacity; j++) {
+                memory[i][j] = memory[i-1][j];
+                if (j >= weight[i])
+                    memory[i][j] = max(memory[i][j], value[i] + memory[i-1][j-weight[i]]);
+            }
+        }
+        return memory[weight.size()-1][capacity];
+    }
+
+    int dpSolutionOptimized(const vector<int> &weight, const vector<int> &value, int capacity) {
+        vector<int> memory(capacity + 1, 0);
+
+        for (int i = 0; i <= capacity; i++)
+            memory[i] = (i >= weight[0] ? value[0]: 0);
+
+        for (int i = 1; i < weight.size(); i++) {
+            for (int j = capacity; j >= weight[i]; j--)
+                memory[j] = max(memory[j], memory[j-weight[i]] + value[i]);
+        }
+        return memory[capacity];
+    }
+
 public:
     int zeroOnePackSolution(const vector<int> &weight, const vector<int> &value, int capacity) {
         assert(weight.size() == value.size() && weight.size() != 0 && capacity > 0);
