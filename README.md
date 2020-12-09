@@ -6,6 +6,16 @@
 
 ----------
 
+### :telescope:	Algorithm
+
+- [二叉树与递归: DP、回溯、DFS、BFS，一个通用的算法框架](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/tree)
+- [回溯与剪枝: 《明日边缘》or 《源代码》](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/backtracking)
+- [排序: 经典排序算法的思想随处可见](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/sort)
+- [动态规划(01)——从斐波那契到硬币找零](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/dp/dp(01))
+
+
+## :toolbox: Data Structure
+
 - [并查集: 没人比我更懂连通性](https://github.com/SmartKeyerror/Snorlax/tree/master/src/union-find)
 - [递归: 面试叫我小甜甜，生产叫我小垃圾?](https://github.com/SmartKeyerror/Snorlax/tree/master/src/recursive)
 - [堆: 堆排序、TopK、计算百分位数，我的能量超乎你想象](https://github.com/SmartKeyerror/Snorlax/tree/master/src/heap)
