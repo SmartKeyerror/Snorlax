@@ -37,15 +37,21 @@ private:
         return;
     }
 
-public:
-    int countVowelStrings(int n) {
-
+    int backtracking(int n) {
         if (n == 0)
             return result;
-        
         string selected;
         permute(n, selected, result);
-
         return result;
+    }
+
+    int mathSolution(int n) {
+        return (n + 4) * (n + 3) * (n + 2) * (n + 1) / 24;
+    }
+
+public:
+    int countVowelStrings(int n) {
+        // return backtracking(n);
+        return mathSolution(n);
     }
 };
