@@ -210,7 +210,7 @@ Flood fill 算法又称为漫水填充算法，在扫雷游戏中用于计算需
 ![](images/island.png)
 
 题解:
-> https://github.com/SmartKeyerror/Snorlax/blob/master/leetcode/depth-first-search/200-Number-of-Islands.cpp
+> https://github.com/SmartKeyerror/Snorlax/blob/master/leetcode/flood-fill/200-Number-of-Islands.cpp
 
 不过，Flood fill 严格意义上来来说应该是一种深度优先遍历(DFS)算法，但是说是回溯法的一种也没太大毛病。
 
