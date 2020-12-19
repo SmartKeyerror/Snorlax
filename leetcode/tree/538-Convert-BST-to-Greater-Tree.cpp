@@ -12,6 +12,7 @@ struct TreeNode {
  * 将一棵 BST 转换成一个节点值更大的 BST， 根据 right - root - left 的顺序，每个节点的值等于以遍历节点值的和再加上当前节点值
  */
 class Solution {
+private:
     int total = 0;
     
     void traversal(TreeNode* root) {
