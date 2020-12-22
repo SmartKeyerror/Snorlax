@@ -6,7 +6,7 @@ Flood fill 算法在本项目的回溯算法中有一个简单的介绍，严格
 
 一如既往地难以理解。简单地来说，Flood fill 算法就是一种染色算法，前些年很火的“解压神器”《秘密花园》就是给定一个带有各种轮廓的白板，由用户给这些白板涂上自己喜欢的颜色:
 
-![](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/flood-fill/SecretGarden.jpg)
+![Alt text](images/1608615721659.png)
 
 空白的轮廓在我们看来就是一个边界，可能是条规整的直线，也可能是个不规则的弧形，我们染色的区域不能超出这个边界。但是对于计算机而言，图像是由矩阵所构成的。如果有小伙伴儿用过 OpenCV 对图片进行过图像识别的话，对这一点一定不会陌生。所以，计算中的染色实际上是对图像矩阵中一个一个的矩阵单元进行染色的。
 
@@ -171,6 +171,6 @@ void transform(vector<vector<char>>& board, int startx, int starty) {
 - [1034. Coloring A Border](https://leetcode.com/problems/coloring-a-border/)
 - ......
 
-下面是我对一些问题的题解，不一定是最优的实现:
+下面是我对一些问题的题解:
 
 > https://github.com/SmartKeyerror/Snorlax/tree/master/leetcode/flood-fill
