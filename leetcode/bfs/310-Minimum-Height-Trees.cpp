@@ -7,31 +7,25 @@
 using namespace std;
 
 class Solution {
-public:
-    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
-        // 老规矩，将 list of edges 转换成邻接表
+private:
+    // 对每一个节点进行 BFS 将会导致 TLE。
+    vector<int> brouteForceSolution(int n, vector<vector<int>>& edges) {
         vector<unordered_set<int>> record(n);
         for (int i = 0; i < edges.size(); i++) {
             record[edges[i][0]].insert(edges[i][1]);
             record[edges[i][1]].insert(edges[i][0]);
         }
-
         int minHigh = INT_MAX;
         vector<int> result;
-
         for (int i = 0; i < n; i++) {
-
             int height = 0;
             queue<int> levelQueue;
             vector<bool> visited(n, false);
-
             levelQueue.push(i);
             visited[i] = true;
-
             while (!levelQueue.empty()) {
                 height ++;
                 int size = levelQueue.size();
-
                 for (int j = 0; j < size; j++) {
                     int current = levelQueue.front();
                     levelQueue.pop();
@@ -50,7 +44,10 @@ public:
             } else if (height == minHigh)
                 result.push_back(i);
         }
-
         return result;
     }
+
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        
 };
