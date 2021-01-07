@@ -6,48 +6,51 @@
 
 using namespace std;
 
+/*
+ * 对每一个节点进行 BFS 将会导致 TLE。
+ * 
+ * 另外一种解法，从叶子节点(也就是度为0的节点)开始，一层一层的进行删除，直到剩下 1 个或者是 2 个节点，那么这两个节点就是我们所需要的根节点。
+ */
 class Solution {
 private:
-    // 对每一个节点进行 BFS 将会导致 TLE。
-    vector<int> brouteForceSolution(int n, vector<vector<int>>& edges) {
+    vector<int> onionSolution(int n, vector<vector<int>>& edges) {
+        if (n == 1) return {0};
+
         vector<unordered_set<int>> record(n);
         for (int i = 0; i < edges.size(); i++) {
             record[edges[i][0]].insert(edges[i][1]);
             record[edges[i][1]].insert(edges[i][0]);
         }
-        int minHigh = INT_MAX;
-        vector<int> result;
+
+        queue<int> levelQueue;
         for (int i = 0; i < n; i++) {
-            int height = 0;
-            queue<int> levelQueue;
-            vector<bool> visited(n, false);
-            levelQueue.push(i);
-            visited[i] = true;
-            while (!levelQueue.empty()) {
-                height ++;
-                int size = levelQueue.size();
-                for (int j = 0; j < size; j++) {
-                    int current = levelQueue.front();
-                    levelQueue.pop();
-                    for (int child: record[current]) {
-                        if (!visited[child]) {
-                            levelQueue.push(child);
-                            visited[child] = true;
-                        }
-                    }
+            if (record[i].size() == 1) levelQueue.push(i);
+        }
+
+        while (n > 2) {
+            int size = levelQueue.size();
+            n -= size;
+            for (int i = 0; i < size; i++) {
+                int current = levelQueue.front();
+                levelQueue.pop();
+                for (int next : record[current]) {
+                    record[next].erase(current);
+                    // levelQueue 仅处理叶子节点
+                    if (record[next].size() == 1) levelQueue.push(next);
                 }
             }
-            if (height < minHigh) {
-                result.clear();
-                result.push_back(i);
-                minHigh = height;
-            } else if (height == minHigh)
-                result.push_back(i);
+        }
+
+        vector<int> result;
+        while (!levelQueue.empty()) {
+            result.push_back(levelQueue.front());
+            levelQueue.pop();
         }
         return result;
     }
 
 public:
     vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
-        
+        return onionSolution(n, edges);
+    }
 };
