@@ -8,7 +8,7 @@
 
 ----------
 
-### :telescope:	Algorithm
+## :telescope:	Algorithm
 
 - [二叉树与递归: DP、回溯、DFS、BFS，一个通用的算法框架](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/tree)
 - [回溯与剪枝: 《明日边缘》or 《源代码》](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/backtracking)
@@ -18,6 +18,10 @@
 - [动态规划(02)——0-1背包问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/dp/dp(02))
 - [图的二三事—基本概念与基础问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/graph/base)
 - [BFS与图论问题建模](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/bfs)
+
+## :label: Algorithm Topics
+
+- [Leetcode 中的排列问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/permutation)
 
 ## :toolbox: Data Structure
 
