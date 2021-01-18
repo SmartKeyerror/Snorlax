@@ -170,7 +170,81 @@ bool dfs(int src) {
 
 > [directed_cycle_detection](https://github.com/SmartKeyerror/Snorlax/blob/master/src/graph/src/directed_cycle_detection.cpp)
 
-### 6. 二分图检测
+### 6. 有向图的拓扑排序
+
+提到有向图的环检测，就不得不提到独属于有向图的一个非常重要的概念: 拓扑排序。拓扑排序简单地来说就是所有顶点的一个线性排列，将有向图的方向性在排序的序列中体现出来。比较典型的案例就是课程的学习，学习 A 课程之前需要学习 B，学习 B 课程之前需要先学习 C，而为了学习 C 则必须先学习 D，可以得到下面一张非常简单的学习方向图:
+
+```bash
+D -> C -> B -> A
+```
+
+那么拓扑排序的结果就是 `[D, C, B, A]`，从最基本的课程开始，一路学习到最后的课程。
+
+和循坏依赖抛出错误类似的是，如果一个课程学习中出现了环的话，我们将无法学习完全部的课程，例如 A 依赖 B, B 依赖 A，死锁了，无法找到一个切入点。**所以，拓扑排序只能应用在 DAG（Directed Acyclic Graph），即有向无环图中。**
+
+在开始拓扑排序之前，有一个比较重要的基础概念需要介绍，也就是顶点的度。对于无向图而言，某一个顶点的度就等于该顶点所相邻的顶点个数，或者说所连接的边数。而对于有向图来说，需要区分**入度**和**出度**。所谓入度是指有多少条边指向自己，出度则指有多少条边指向其他顶点。
+
+![Alt text](images/1610969195375.png)
+
+我们以这张图作为本小节的示例。如上图所示，对于顶点 `0` 来说，没有哪条边指向自己，所以它的入度为 0。有且仅有一条指向顶点 `1` 的边，所以其出度为 1。同理可得顶点 `1` 的入度为 1，出度为 2，以此类推。
+
+在拓扑排序中，我们更关心一个顶点的入度是否为 0，因为这关系的当前顶点是否存在“依赖”。如果其入度不为 0 的话，那么该顶点一定还有先驱顶点需要处理，反之我们可以直接处理当前顶点。
+
+**拓扑排序的第一步就是从所有入度为 0 的顶点出发**，每处理一个顶点都将其指向的边“删除”，重新计算相邻顶点的入度，然后再从入度为 0 的顶点重新出发。具体过程如下图所示:
+
+![Alt text](images/1610969913041.png)
+
+我们可以使用队列这一数据结构来保存最初的、以及遍历过程中产生的入度为 0 的顶点，如此一来先入队的顶点即可先被放入结果队列中:
+
+```cpp
+class TopologicalSorting {
+private:
+    vector<unordered_set<int>> graph;
+public:
+    // 图以 Edge lists 的方式传入，每个顶点编号为 0 - vertices-1。edges[i][0] -> edges[i][1]，以此表示方向
+    vector<int> topoList(int vertices, vector<vector<int>> edges) {
+        graph = vector<unordered_set<int>>(vertices);
+
+        for (auto edge : edges)
+            graph[edge[0]].insert(edge[1]);
+        
+        // 计算每个顶点的入度
+        vector<int> indegrees(vertices, 0);
+        for (int i = 0; i < graph.size(); i++) 
+            for (int neighbor : graph[i]) 
+                indegrees[neighbor] ++;
+
+        // 将所有入度为零的顶点压入队列
+        queue<int> zeroQueue;
+        for (int i = 0; i < indegrees.size(); i++) {
+            if (indegrees[i] == 0) zeroQueue.push(i);
+        }
+
+        vector<int> result;
+        while (!zeroQueue.empty()) {
+            int current = zeroQueue.front();
+            zeroQueue.pop();
+
+            result.push_back(current);
+
+            for (int next : graph[current]) {
+                // 此时 current 顶点已经被处理，所以需要将 current->next 的这条边“隐去”，也就是 next 顶点的入度减一
+                indegrees[next] --;
+                if (indegrees[next] == 0) zeroQueue.push(next);
+            }
+        }
+
+        return result;
+    }
+};
+```
+
+另外一个方面，上述拓扑排序的方式也可以用于判断有向图中是否存在环。如果存在环的话，经拓扑排序得到的顶点序列个数必将小于原有顶点个数，这是因为当环存在时，这些顶点的入度永远不可能为 0，也就无法压入队列中进行处理。
+
+此外，深度优先遍历的后序遍历也可以得到拓扑排序的结果，但是该方法无法检测有向图中是否存在环，所以在实际应用中使用较少。
+
+
+### 7. 二分图检测
 
 二分图检测也是图论领域中一个非常重要的判断图性质的一个手段，在匹配问题或者是完美匹配问题中，一个图是否是二分图将直接决定能否在该图中解决匹配问题。二分图的概念本身很简单，就是每一条边的另个顶点分属于不同的部分，如下图所示:
 
@@ -203,7 +277,7 @@ int dfs(int src, int color) {
 同样地，Leetcode 上也存在和二分图相关的题目，例如: [785. Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/)，[886. Possible Bipartition](https://leetcode.com/problems/possible-bipartition/)。
 
 
-### 7. 小结
+### 8. 小结
 
 在计算连通分量的个数、环检测以及二分图检测中均使用 DFS 实现，值得一提的是这些问题也可以使用 BFS 实现。这些问题本质上其实就是对图进行遍历，在遍历的过程中对某些变量进行修修改改，这些变量其实最为核心的就是 `visited` 数组。正是因为对 `visited` 数组需要进行频繁的操作，所以在某些场景下我们会使用 Bit Manipulation 来代替数组的方式，对 `visited` 数组进行状态压缩，以获得更少的操作时间以及更多的内存空间。
 
