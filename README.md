@@ -1,9 +1,5 @@
 # Snorlax
 
-<!-- <div align="center">
-    <img src="https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/data-structure/logo.png">
-</div> -->
-
 ![](./Snorlax.png)
 
 ----------
@@ -18,6 +14,7 @@
 - [动态规划(02)——0-1背包问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/dp/dp(02))
 - [图的二三事—基本概念与基础问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/graph/base)
 - [BFS与图论问题建模](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/bfs)
+- [位操作那些事儿](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/bit-manipulation)
 
 ## :label: Algorithm Topics
 
