@@ -19,6 +19,7 @@
 ## :label: Algorithm Topics
 
 - [Leetcode 中的排列问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/permutation)
+- [Prefix Sum 与 Prefix XOR](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/prefix-sum)
 
 ## :toolbox: Data Structure
 
