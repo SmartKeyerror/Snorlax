@@ -13,12 +13,12 @@ struct compare {
 };
 
 /*
- * 将所有的组合丢到大小为 k 的大堆中即可。
+ * 将所有的组合丢到大小为 k 的小堆中即可。
  */
 class Solution {
 public:
     vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
-        priority_queue<intPair, vector<intPair>, compare> heap;       // 用大堆顶来做
+        priority_queue<intPair, vector<intPair>, compare> heap;
 
         for (int i = 0; i < nums1.size(); i++) {
             for (int j = 0; j < nums2.size(); j++) {
