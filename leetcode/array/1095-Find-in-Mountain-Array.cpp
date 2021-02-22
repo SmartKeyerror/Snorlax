@@ -30,7 +30,7 @@ private:
             else right = mid - 1;
         }
         return -1;
-    }    
+    }
 public:
     int findInMountainArray(int target, MountainArray &mountainArr) {
         int n = mountainArr.length();
