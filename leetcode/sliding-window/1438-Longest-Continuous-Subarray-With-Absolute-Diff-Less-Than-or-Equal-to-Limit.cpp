@@ -18,10 +18,12 @@ public:
         while (right < n) {
             window.insert(nums[right]);
             while (*window.rbegin() - *window.begin() > limit) {
+                // 注意，这里不能写 window.erase(nums[left]), 这样会将值为 nums[left] 的所有元素从 window 中删除
+                // 而我们的本意只是删除一个，所以用迭代器的方式实现
                 window.erase(window.find(nums[left]));
                 left ++;
             }
-            result = max(result, static_cast<int>(window.size()));
+            result = max(result, right - left + 1);
             right ++;
         }
         return result;
