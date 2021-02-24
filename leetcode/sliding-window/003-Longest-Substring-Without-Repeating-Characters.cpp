@@ -1,13 +1,13 @@
 
 #include <limits.h>
-
+#include <string>
 #include <unordered_set>
 #include <vector>
 
 using namespace std;
 
 class Solution {
- public:
+public:
   int lengthOfLongestSubstring(string s) {
     if (s.size() == 0) return 0;
 
