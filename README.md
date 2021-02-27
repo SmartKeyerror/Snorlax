@@ -26,7 +26,7 @@
 
 ### Linked-List
 
-- [单链表 A、B 可能有环，也可能无环。这两个链表可能相交，也可能不相交，若相交请返回相交节点，否则返回 null。](#intersection-of-two-linked-list)
+- [单链表 A、B 可能有环，也可能无环。这两个链表可能相交，也可能不相交，若相交请返回相交节点，否则返回 null。额外空间复杂度请达到 O(1)](#intersection-of-two-linked-list)
 
 ## :toolbox: Data Structure
 
