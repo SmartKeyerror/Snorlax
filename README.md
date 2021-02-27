@@ -41,4 +41,4 @@
 
 #### intersection-of-two-linked-list
 
-!()[interesting-problems/intersection-of-two-linked-list.png]
+![](interesting-problems/intersection-of-two-linked-list.png)
