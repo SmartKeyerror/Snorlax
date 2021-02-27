@@ -22,6 +22,12 @@
 - [Leetcode 中的排列问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/permutation)
 - [Prefix Sum 与 Prefix XOR](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/prefix-sum)
 
+## :beers: Interesting Problems
+
+### Linked-List
+
+- [单链表 A、B 可能有环，也可能无环。这两个链表可能相交，也可能不相交，若相交请返回相交节点，否则返回 null。](#intersection-of-two-linked-list)
+
 ## :toolbox: Data Structure
 
 - [并查集: 没人比我更懂连通性](https://github.com/SmartKeyerror/Snorlax/tree/master/src/union-find)
@@ -31,3 +37,8 @@
 - [二分搜索树: 简简单单，描述二叉树所有的性质](https://github.com/SmartKeyerror/Snorlax/tree/master/src/search-tree)
 - [栈: C泛型栈如何实现?](https://github.com/SmartKeyerror/Snorlax/tree/master/src/stack)
 - [哈希表: 感受数组的魅力](https://github.com/SmartKeyerror/Snorlax/tree/master/src/hash-table)
+
+
+#### intersection-of-two-linked-list
+
+!()[interesting-problems/intersection-of-two-linked-list.png]
