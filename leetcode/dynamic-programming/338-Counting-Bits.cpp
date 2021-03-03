@@ -32,11 +32,28 @@ using namespace std;
  * 
  * 那么当 i 为偶数的时候，memory[i] = memory[i/2]； 当 i 为奇数的时候，memory[i] = memory[i/2] + 1;
  * 
- * 二进制里面还有很多有趣儿的东西值得挖掘，等有时间了好好整理一番，嘿嘿。
+ * 
+ * 另一种解法是直接使用 dp 来求解，假设我们要求 170 中有多个 bit 1，那么将 170 的最后一位去掉，也就是右移一位，得到 8
+ * 
+ * 假设 85 中存在 4 个 1 bit，那么此时我们只需要查看 170 的最后一位是否是 1 即可。
+ * 
  */
 class Solution {
 public:
-    vector<int> countBits(int num) {
+
+    // 另一种解法是直接使用 dp 来求解，假设我们要求 170 中有多个
+    vector<int> dpSolution(int num) {
+        if (num == 0) return {0};
+        vector<int> memory(num + 1, 0);
+        memory[0] = 0;
+
+        for (int i = 1; i <= num; i++)
+            memory[i] = memory[i>>1] + (i & 1);
+        
+        return memory;
+    }
+
+    vector<int> easySolution(int num) {
         if (num == 0) return {0};
 
         vector<int> memory(num + 1, 0);
@@ -46,5 +63,10 @@ public:
             memory[i] = i % 2 == 0 ? memory[i/2]: memory[i/2] + 1;
         
         return memory;
+    }
+
+    vector<int> countBits(int num) {
+        return easySolution(num);
+        return dpSolution(num);
     }
 };
