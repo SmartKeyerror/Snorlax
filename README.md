@@ -24,6 +24,10 @@
 
 ## :beers: Interesting Problems
 
+### Danamic Programing
+
+- [Coin Change 及其变种问题](#Coin-Change)
+
 ### Linked-List
 
 - [单链表 A、B 可能有环，也可能无环。这两个链表可能相交，也可能不相交，若相交请返回相交节点，否则返回 null。额外空间复杂度请达到 O(1)](#intersection-of-two-linked-list)
@@ -38,6 +42,10 @@
 - [栈: C泛型栈如何实现?](https://github.com/SmartKeyerror/Snorlax/tree/master/src/stack)
 - [哈希表: 感受数组的魅力](https://github.com/SmartKeyerror/Snorlax/tree/master/src/hash-table)
 
+
+#### Coin-Change
+
+[Coin Change](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/dp/Coin%20Change.pdf)
 
 #### intersection-of-two-linked-list
 
