@@ -26,7 +26,7 @@
 
 ### Danamic Programing
 
-- [Coin Change 及其变种问题](#Coin-Change)
+- [Coin Change 及其变种问题](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/dp/Coin%20Change.pdf)
 
 ### Linked-List
 
@@ -42,10 +42,6 @@
 - [栈: C泛型栈如何实现?](https://github.com/SmartKeyerror/Snorlax/tree/master/src/stack)
 - [哈希表: 感受数组的魅力](https://github.com/SmartKeyerror/Snorlax/tree/master/src/hash-table)
 
-
-#### Coin-Change
-
-[Coin Change](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/dp/Coin%20Change.pdf)
 
 #### intersection-of-two-linked-list
 
