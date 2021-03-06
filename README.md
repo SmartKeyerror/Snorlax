@@ -26,7 +26,7 @@
 
 ### Danamic Programing
 
-- [Coin Change 及其变种问题](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/dp/Coin%20Change.pdf)
+- [Coin Change 及其变种问题](https://smartkeyerror.oss-cn-shenzhen.aliyuncs.com/Snorlax/leetcode/dp/Coin-Change.pdf)
 
 ### Linked-List
 
