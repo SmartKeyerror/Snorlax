@@ -14,7 +14,7 @@ private:
 public:
     // 图以 Edge lists 的方式传入，每个顶点编号为 0 - vertices-1。edges[i][0] 与 edges[i][1] 表示连接的两个顶点，edges[i][2] 表示距离
     // 有向图和无向图均可使用 Dijkstra 求解最短路径，所以这里使用无向图，且图中没有负权边
-    int dijkstra(int vertices, vector<vector<int>> edges, int src, int dst) {
+    vector<int> dijkstra(int vertices, vector<vector<int>> edges, int src) {
 
         graph = vector<unordered_map<int, int>>(vertices);
         for (int i = 0; i < edges.size(); i++) {
@@ -45,15 +45,18 @@ public:
                 }
             }
         }
-        return distance[dst] == INT_MAX ? -1 : distance[dst];
+        
+        return distance;
     }
 };
 
 int main() {
-    int vertices = 7;
+    int vertices = 6, src = 0;
     vector<vector<int>> edges = {
-        {0, 1, 5}, {0, 2, 5}, {0, 3, 7}, {1, 4, 6}, {2, 4, 3}, {2, 5, 2}, {2, 3, 1}, {3, 5, 10}, {4, 6, 8}, {5, 6, 1}
+        {0, 1, 2}, {0, 3, 3}, {1, 2, 3}, {2, 3, 4}, {3, 4, 5}, {2, 4, 1}, {1, 5, 12}, {2, 5, 6}, {4, 5, 4}
     };
-    int dis = Dijkstra().dijkstra(vertices, edges, 0, 6);
-    cout<<dis<<endl;
+    vector<int> dis = Dijkstra().dijkstra(vertices, edges, src);
+
+    for (int i = 1; i < vertices; i++) 
+        cout<<"顶点 "<<src<<" 到顶点 "<<i<<" 的最短路径为: "<<dis[i]<<endl;
 }
