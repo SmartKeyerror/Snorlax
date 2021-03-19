@@ -9,14 +9,12 @@ using namespace std;
 
 
 class Dijkstra {
-private:
-    vector<unordered_map<int, int>> graph;
 public:
     // 图以 Edge lists 的方式传入，每个顶点编号为 0 - vertices-1。edges[i][0] 与 edges[i][1] 表示连接的两个顶点，edges[i][2] 表示距离
     // 有向图和无向图均可使用 Dijkstra 求解最短路径，所以这里使用无向图，且图中没有负权边
     vector<int> dijkstra(int vertices, vector<vector<int>> edges, int src) {
 
-        graph = vector<unordered_map<int, int>>(vertices);
+        vector<unordered_map<int, int>> graph(vertices);
         for (int i = 0; i < edges.size(); i++) {
             int u = edges[i][0], v = edges[i][1], dis = edges[i][2];
             graph[u].insert({v, dis}), graph[v].insert({u, dis});
