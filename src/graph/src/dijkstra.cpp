@@ -29,7 +29,7 @@ public:
         heap.push({0, src});
 
         while (!heap.empty()) {
-            int current = heap.top().first;
+            int current = heap.top().second;
             heap.pop();
 
             visited[current] = true;
@@ -39,7 +39,7 @@ public:
                 if (visited[node]) continue;
                 else if (distance[current] + graph[current][node] < distance[node]) {
                     distance[node] = distance[current] + graph[current][node];
-                    heap.push({node, distance[node]});
+                    heap.push({distance[node], node});
                 }
             }
         }

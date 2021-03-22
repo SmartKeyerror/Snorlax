@@ -3,6 +3,7 @@
 #include <vector>
 #include <queue>
 #include <limits.h>
+#include <unordered_map>
 
 using namespace std;
 
@@ -15,45 +16,29 @@ using namespace std;
  * 最短路径问题嘛，解法实在是太多了，带剪枝的 DFS，带剪枝的 BFS，DP，Dijkstra算法等等等等，都能解决这个问题。
  */
 class Solution {
-private:
-    int result = INT_MAX;
-    vector<bool> visited;
-    void dfs(vector<vector<int>> &prices, int k, int current, int dst, int cost) {
-                
-        if (current == dst) {
-            result = min(result, cost);
-            return ;
-        }
-
-        for (int i = 0; i < prices.size(); i++) {
-            // 剪枝条件，当然也可以作为递归终止条件来写，但是能省一个栈帧是一个，干脆怼到一起
-            if (prices[current][i] != INT_MAX && !visited[i] && cost + prices[current][i] < result && k - 1 >= 0) {
-                visited[i] = true;
-                dfs(prices, k - 1, i, dst, cost + prices[current][i]);
-                visited[i] = false;
-            }
-        }
-    }
-
-    // Runtime: 236 ms, faster than 7.42% of C++ online submissions for Cheapest Flights Within K Stops.
-    int dfsSolution(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-        // 首先，我们用邻接矩阵的方式把 flights 整理一下，i 为起点， j 为终点
-        vector<vector<int>> prices(n, vector<int>(n, INT_MAX));
-        for (int i = 0; i < flights.size(); i++)
-            prices[flights[i][0]][flights[i][1]] = flights[i][2];
-        
-        visited = vector<bool>(n, false);
-        // 深度优先遍历
-        dfs(prices, K + 1, src, dst, 0);
-
-        if (result == INT_MAX) return -1;
-
-        return result;
-    }
-
-
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-        return dfsSolution(n, flights, src, dst, K);
+        vector<unordered_map<int, int>> graph(n);
+        for (int i = 0; i < flights.size(); i++)
+            graph[flights[i][0]].insert({flights[i][1], flights[i][2]});
+
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> heap;
+
+        heap.push({0, src, K});
+
+        while (!heap.empty()) {
+            int currentDis = heap.top()[0], currentNode = heap.top()[1], remainK = heap.top()[2];
+            heap.pop();
+
+            if (currentNode == dst) return currentDis;
+
+            if (remainK >= 0) {
+                for (auto next : graph[currentNode]) {
+                    int node = next.first, weight = next.second;
+                    heap.push({currentDis + weight, node, remainK - 1});
+                }
+            }
+        }
+        return -1;
     }
 };
