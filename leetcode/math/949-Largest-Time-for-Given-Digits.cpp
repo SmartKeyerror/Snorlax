@@ -11,9 +11,13 @@ using namespace std;
  */
 class Solution {
 private:
-    void permutation(vector<int>& arr, vector<bool>& visited, vector<string>& result, string& current) {
+
+    string maxValue;
+
+    void permutation(vector<int>& arr, vector<bool>& visited, string& current) {
         if (current.size() == 4) {
-            result.push_back(current);
+            if (current.substr(0, 2) <= "23" && current.substr(2) <= "59")
+                maxValue = max(maxValue, current);
             return;
         }
         for (int i = 0; i < arr.size(); i++) {
@@ -24,7 +28,7 @@ private:
             visited[i] = true;
             current.push_back(arr[i] + '0');
 
-            permutation(arr, visited, result, current);
+            permutation(arr, visited, current);
 
             current.pop_back();
             visited[i] = false;
@@ -32,23 +36,16 @@ private:
     }
 public:
     string largestTimeFromDigits(vector<int>& arr) {
-        int n = arr.size();
+        maxValue = "";
 
-        vector<bool> visited(n, false);
-        vector<string> result;
         string current = "";
-
-        permutation(arr, visited, result, current);
-
-        string currentMax = "";
-
-        for (auto s : result) {
-            if (s.substr(0, 2) <= "23" && s.substr(2) <= "59") currentMax = max(s, currentMax);
-        }
-
-        if (currentMax != "")
-            currentMax.insert(currentMax.begin() + 2, ':');
+        vector<bool> visited(arr.size(), false);
         
-        return currentMax;
+        permutation(arr, visited, current);
+
+        if (maxValue != "")
+            maxValue.insert(maxValue.begin() + 2, ':');
+        
+        return maxValue;
     }
 };
