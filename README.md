@@ -11,23 +11,25 @@
 - [Flood fill 算法小专题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/flood-fill)
 - [排序: 经典排序算法的思想随处可见](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/sort)
 
-## :label: 动态规划
+## :fire: 动态规划
 - [动态规划(01)——从斐波那契到硬币找零](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/dp/dp(01))
 - [动态规划(02)——0-1背包问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/dp/dp(02))
 - [Coin Change: 自顶向下思考，自底向上实现](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/dp/dp(03))
 
-## :label: Graph
+## :paw_prints: Graph
 - [图的二三事—基本概念与基础问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/graph/base)
 - [BFS与图论问题建模](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/bfs)
 - [汉密尔顿回路与欧拉回路](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/graph/loop)
 - [最短路径问题——Dijkstra 算法](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/graph/shortest-path/dijkstra)
 
 
-## :label: Other Algorithm Topics
+## :blowfish: Other Algorithm Topics
 
 - [位操作那些事儿](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/bit-manipulation)
 - [Leetcode 中的排列问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/permutation)
 - [Prefix Sum 与 Prefix XOR](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/prefix-sum)
+
+------
 
 ## :beers: Interesting Problems
 
