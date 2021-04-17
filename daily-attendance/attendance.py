@@ -7,7 +7,7 @@ current_path = os.path.dirname(__file__)
 ignore_files = ["README.md", "attendance.py", "attendance-date.md"]
 
 
-basic_url = "https://github.com/SmartKeyerror/Snorlax/tree/daily-attendance"
+basic_url = "https://github.com/SmartKeyerror/Snorlax/blob/master/daily-attendance"
 
 
 def transform_timestamp(timestamp):
