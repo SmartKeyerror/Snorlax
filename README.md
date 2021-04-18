@@ -1,4 +1,6 @@
-# Snorlax
+# Snorlax  
+
+![](https://travis-ci.com/SmartKeyerror/Snorlax.svg?branch=master)
 
 ![](./Snorlax.png)
 
