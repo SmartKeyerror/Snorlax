@@ -2,4 +2,4 @@ language: python
 script: 
   - python3 daily-attendance/attendance.py
 after_success:
-  - travis.sh
+  - sh travis.sh
