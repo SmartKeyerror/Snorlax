@@ -14,7 +14,7 @@ commit_website_files() {
 
 
 upload_files() {
-  git push -f https://${GH_TOKEN}@github.com/SmartKeyerror/Snorlax.git
+  git push -f https://${GH_TOKEN}@github.com/SmartKeyerror/Snorlax.git HEAD:master
 }
 
 setup_git
