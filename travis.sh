@@ -2,8 +2,9 @@
 
 
 setup_git() {
-  git config --global user.email "SmartKeyerror@gmail.com"
+  git config --global user.email "travis@travis-ci.org"
   git config --global user.name "Travis CI"
+  git config --global push.default simple
 }
 
 commit_website_files() {
@@ -13,8 +14,7 @@ commit_website_files() {
 
 
 upload_files() {
-  git remote add origin https://${GH_TOKEN}@github.com/SmartKeyerror/Snorlax.git
-  git push origin master
+  git push -f https://${GH_TOKEN}@github.com/SmartKeyerror/Snorlax.git
 }
 
 setup_git
