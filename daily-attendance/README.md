@@ -15,6 +15,7 @@
 ## :telescope:	Algorithm
 
 - [快速排序](https://github.com/SmartKeyerror/Snorlax/blob/master/daily-attendance/algorithm/2021-04-17-quick-sort.cpp)
+- [两个链表相交的一系列问题（有环或无环）](https://github.com/SmartKeyerror/Snorlax/blob/master/daily-attendance/algorithm/2021-04-18-intersection-of-linked-list.cpp)
 
 
 ## :fire: CPlusPlus
@@ -27,3 +28,5 @@
 
 
 ## :gear: Operating System
+
+- [进程与线程之间的区别](https://github.com/SmartKeyerror/Snorlax/blob/master/daily-attendance/os/2021-04-18-process-and-thread.md)
