@@ -18,29 +18,20 @@ class Solution {
 public:
     int countPairs(vector<int>& deliciousness) {
         
-        if (deliciousness.size() <= 1) return 0;
-        
-        int result = 0;
-        int mod = 1000000007;
+        // 图省事，所以直接使用长整型
+        long long result = 0;
         unordered_map<int, int> record;
 
-
-        sort(deliciousness.begin(), deliciousness.end());
-        record[deliciousness[0]] ++;
-        
-        for (int i = 0; i < deliciousness.size(); i++) {
+        for (auto v : deliciousness) {
             for (int p = 0; p <= 21; p++) {
-
-                if ((int)pow(2,p) > 2 * deliciousness[i]) break;
-
-                int target = (int)(pow(2, p)) - deliciousness[i];
-                if (record.count(target) != 0) {
-                    result += record[target] % mod;
-                    result = result % mod;
+                int find = (1 << p) - v;
+                if (record.count(find)) {
+                    result += record[find];
                 }
             }
-            record[deliciousness[i]] ++;
+            record[v] ++;
         }
-        return result;
+        int mod = 1e9 + 7;
+        return result % mod;
     }
 };
