@@ -29,6 +29,7 @@
 
 ## :blowfish: Other Algorithm Topics
 
+- [N-Sum 问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/N-Sum)
 - [位操作那些事儿](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/bit-manipulation)
 - [Leetcode 中的排列问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/permutation)
 - [Prefix Sum 与 Prefix XOR](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/prefix-sum)
