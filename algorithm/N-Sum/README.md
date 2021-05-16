@@ -46,7 +46,18 @@ public:
 - 若 `nums[left] + nums[right] = target`，那么这就是我们要找的答案，直接返回即可；
 - 若 `nums[left] + nums[right] < target`，由于数组是有序的，所以表明刺水 `nums[left]` 的值太小了，应该增加一点点，所以让 `left` 指针向右移动。
 
-如果到最后 `left` 和 `right` 相遇了，就说明数组中根本没有两个元素 `a`、`b`，使其之和等于 `target`。在上面的过程中，`left` 指针向右移动，`right` 指针向左移动，最后可能会在某一点“相撞”，所以又称为对撞指针。实现如下:
+如果到最后 `left` 和 `right` 相遇了，就说明数组中根本没有两个元素 `a`、`b`，使其之和等于 `target`。在上面的过程中，`left` 指针向右移动，`right` 指针向左移动，最后可能会在某一点“相撞”，所以又称为对撞指针。那么，为什么对撞指针是正确的呢? 在 `left` 和 `right` 移动过程中，有没有可能将正确答案漏掉? 答案是不会。
+
+
+![Alt text](images/1620884485654.png)
+
+如上图所示，假设我们的 `target` 的值为 22，并且唯一解为 `a`、`b`，已在上图标注。可以看到，除非 `a`、`b` 一开始就落在数组起始和结束的地方，否则 `left` 指针一定会向右移动才能到达 `a`，`right` 指针必须向左移动才能到达 `b`。并且，`left` 和 `right` 一定会有到达唯一解的先后顺序，可能是 `left` 先落位，也可能是 `right` 先落位。
+
+- 若 `left` 先到达 `a`，那么此时 `nums[left] + nums[right]` 必然大于 `target`，所以 `right` 向左移动
+- 若 `right` 先到达 `b`，那么此时 `nums[left] + nums[right]` 必然小于 `target`，所以 `left` 向右移动
+- 最终，`left` 一定会等于 `a`，`right` 一定会等于 `b`。
+
+实现如下:
 
 ```cpp
 class Solution {
