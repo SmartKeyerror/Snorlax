@@ -35,6 +35,11 @@
 - [Leetcode 中的排列问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/permutation)
 - [Prefix Sum 与 Prefix XOR](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/prefix-sum)
 
+
+## :ghost: System Design
+
+- [如何设计一个 TinyURL 系统？](https://github.com/SmartKeyerror/Snorlax/tree/master/system-design/tiny-url)
+
 ------
 
 ## :beers: Interesting Problems
