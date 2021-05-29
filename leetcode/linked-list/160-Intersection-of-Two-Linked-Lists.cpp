@@ -43,7 +43,7 @@ public:
         }
     }
 
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    ListNode * changeValueSolution(ListNode *headA, ListNode *headB) {
         changeValue(headA);
 
         ListNode *current = headB;
@@ -54,5 +54,37 @@ public:
 
         changeValue(headA);
         return current;
+    }
+
+    int getLinkedListLength(ListNode *head) {
+
+        int length = 0;
+
+        if (head == nullptr) return length;
+
+        ListNode *current = head;
+        while (current) {
+            length ++;
+            current = current->next;
+        }
+        return length;
+    }
+
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int lenA = getLinkedListLength(headA), lenB = getLinkedListLength(headB);
+
+        if (lenA < lenB) swap(headA, headB);
+
+        ListNode *a = headA, *b = headB;
+
+        for (int i = 0; i < abs(lenA - lenB); i++) a = a->next;
+
+        while (a) {
+            if (a == b) return a;
+            a = a->next;
+            b = b->next;
+        }
+
+        return nullptr;
     }
 };

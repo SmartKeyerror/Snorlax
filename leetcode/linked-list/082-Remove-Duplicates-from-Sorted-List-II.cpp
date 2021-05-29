@@ -36,19 +36,25 @@ public:
 
         if (head == nullptr) return head;
 
-        ListNode *dummy = new ListNode(0), *temp = head, *current = head->next, *prev = dummy;
+        // 创建 dummy head
+        ListNode *dummy = new ListNode(0);
         dummy->next = head;
+
+        ListNode *temp = head, *current = head->next, *prev = dummy;
         
         while (current != nullptr) {
             
+            // 寻找到与 temp 不相等的节点，也就是 prev 指针需要指向的下一个节点
             while (current != nullptr && current->val == temp->val)
                 current = current->next;
             
+            // case 1: 整个链表重复，那么此时直接让 prev->next 指向 current 即可
             if (current == nullptr) {
                 prev->next = current;
                 break;
             }
             
+            // 此时我们需要判断是不是要删除 temp 到 current 之间的链表节点
             if (temp->next != current) {
                 while (temp->val != current->val) {
                     ListNode *deletNode = temp;
