@@ -9,6 +9,7 @@
 ## :telescope:	Algorithm
 
 - [理解二叉树的遍历](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/tree)
+- [从栈的“消除”到单调栈](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/stack)
 - [回溯与剪枝: 《明日边缘》or 《源代码》](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/backtracking)
 - [Flood fill 算法小专题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/flood-fill)
 - [排序: 经典排序算法的思想随处可见](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/sort)
