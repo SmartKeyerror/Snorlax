@@ -9,8 +9,8 @@ using namespace std;
  */ 
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
 
+    bool twiceBinarySearchSolution(vector<vector<int>>& matrix, int target) {
         if (matrix.size() == 0 || matrix[0].size() == 0) return false;
 
         int left = 0, right = matrix.size() - 1, mid;
@@ -32,4 +32,29 @@ public:
         }
         return false;
     }
+    
+    // 映射解法
+    bool singleBinarySearchSolution(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size(), n = matrix[0].size();
+
+        int total = m * n;
+
+        int left = 0, right = total - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            int current = matrix[mid/n][mid%n];
+
+            if (current == target) return true;
+            else if (current > target) right = mid - 1;
+            else left = mid + 1;
+        }
+        return false;
+    }
+
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        return twiceBinarySearchSolution(matrix, target);
+        return singleBinarySearchSolution(matrix, target);
+    }      
 };
