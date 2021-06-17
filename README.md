@@ -14,6 +14,7 @@
 - [Flood fill 算法小专题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/flood-fill)
 - [排序: 经典排序算法的思想随处可见](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/sort)
 - [与 Top-K 相关的问题](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/top-k)
+- [双指针与滑动窗口](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/two-pointers)
 - [Trie 的原理、实现及其应用](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/trie)
 - [线段树的构建、查询与更新](https://github.com/SmartKeyerror/Snorlax/tree/master/algorithm/segment-tree)
 

@@ -20,16 +20,20 @@ public:
 
         vector<int> count(26, 0);
 
-        for (int i = 0; i < s.size(); i++) {
-            count[s[i] - 'A'] ++;
-            maxTimes = max(maxTimes, count[s[i] - 'A']);
+        for (int right = 0; right < s.size(); right++) {
+            // 先将当前字符纳入窗口
+            count[s[right] - 'A'] ++;
 
-            while (i - left + 1 - maxTimes > k) {
+            // 计算最多出现次数，maxTimes 其实卡了一个窗口大小
+            maxTimes = max(maxTimes, count[s[right] - 'A']);
+
+            // 不满足条件时 left 需要不断向右移动
+            while (right - left + 1 - maxTimes > k) {
                 count[s[left] - 'A'] --;
                 left ++;
             }
 
-            result = max(result, i - left + 1);
+            result = max(result, right - left + 1);
         }
         return result;
     }
