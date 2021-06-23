@@ -24,14 +24,13 @@ struct TreeNode {
  * 
  * 如上所示，此时的最大展开直径路径为 9-1-22-11-18，并不包含根节点 15
  * 
- * 对于某一个根节点而言，其最大展开直径为: 最子树最大树高 + 右子树最大树高。
+ * 对于某一个根节点而言，其最大展开直径为: 左子树最大树高 + 右子树最大树高。
  * 
  * 所以，我们的递归函数要做的就是求解某一个节点的最大树高，由外部变量来维护最大展开直径
  * 
  * Runtime: 8 ms, faster than 88.69% of C++ online submissions for Diameter of Binary Tree.
  * Memory Usage: 20.8 MB, less than 93.83% of C++ online submissions for Diameter of Binary Tree.
  * 
- * 挺奇怪的，标准解法都能这么快的? 果然，leetcode 的 Submissions 中的 Runtime 排名都是假的....
  */
 class Solution {
 private:
