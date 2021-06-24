@@ -1,85 +1,37 @@
 
 #include <vector>
-#include <string>
-#include <assert.h>
-#include <algorithm>
 
 using namespace std;
 
 
 class Solution {
-private:
-    vector<vector<int>> delta = {{1, 0}, {0, 1}};
-
-    int m, n;
-    vector<vector<int>> memory;
-
-    bool inGrid(int x, int y) {
-        return x >= 0 && x < m && y >= 0 && y < n;
-    }
-
-    void processRow(vector<vector<int>> &obstacleGrid) {
-        int rowSword = m - 1;
-        for (int row = 0; row < m; row++) {
-            if (obstacleGrid[row][0] == 1) {
-                rowSword = row;
-                memory[row][0] = 0;
-            }
-            else if (row > rowSword) {
-                memory[row][0] = 0;
-            }
-            else
-                memory[row][0] = 1;
-        }
-    }
-
-    void processCol(vector<vector<int>>& obstacleGrid) {
-        int colSword = n - 1;
-        for (int col = 0; col < n; col++) {
-            if (obstacleGrid[0][col] == 1) {
-                colSword = col;
-                memory[0][col] = 0;
-            }
-            else if (col > colSword)
-                memory[0][col] = 0;
-            else
-                memory[0][col] = 1;
-        }
-    }
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-        assert(obstacleGrid.size() > 0);
+        int m = obstacleGrid.size(), n = obstacleGrid[0].size();
 
-        m = obstacleGrid.size();
-        n = obstacleGrid[0].size();
-
-        if (obstacleGrid[m-1][n-1] == 1 || obstacleGrid[0][0] == 1)
+        // 判断开始或者是结束位置是否存在障碍物
+        if (obstacleGrid[0][0] == 1 || obstacleGrid[m-1][n-1] == 1)
             return 0;
+        
+        vector<vector<int>> dp(m, vector<int>(n, 0));
 
-        memory = vector<vector<int>>(m, vector<int>(n, 0));
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
 
-        processRow(obstacleGrid);
-        processCol(obstacleGrid);
+                if (i == 0 && j == 0) dp[i][j] = 1;
+                
+                else if (obstacleGrid[i][j] == 1) dp[i][j] = 0;
+                
+                // 处理第 0 行
+                else if (i == 0) dp[i][j] = dp[i][j-1];
 
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-
-                if (obstacleGrid[i][j-1] != 1)
-                    memory[i][j] += memory[i][j-1];
-
-                if (obstacleGrid[i-1][j] != 1)
-                    memory[i][j] += memory[i-1][j];
+                // 处理第 0 列
+                else if (j == 0) dp[i][j] = dp[i-1][j];
+                
+                else dp[i][j] = dp[i-1][j] + dp[i][j-1];
             }
         }
-            
-        return memory[m-1][n-1];
+        return dp[m-1][n-1];
     }
 };
 
-int main() {
-    Solution s = Solution();
-
-    vector<vector<int>> obstacleGrid = {{0, 1, 0}, {1, 1, 0}, {0, 0, 0}};
-
-    printf("%d \n", s.uniquePathsWithObstacles(obstacleGrid));
-}
