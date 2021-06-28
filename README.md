@@ -57,6 +57,15 @@
 | 层序遍历 | 使用 `queue` 保存每一层的节点 <br> **BFS 用于求解无权图最短路径** | 寻找二叉树每一行的最大节点值: [515. Find Largest Value in Each Tree Row](https://leetcode.com/problems/find-largest-value-in-each-tree-row/) <br> 二叉树的右视图: [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) <br> 多叉树最短路径问题: [310. Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/) <br> **二叉树中所有距离为 K 的节点**: [863. All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/)
 
 
+### Two Pointers
+
+| 方式       | 注意点                  | 能够解决的问题   | 备注  |
+| :--------:| :---------------------: | :------------ | :---: |
+| 对撞指针   | `left` 能否等于 `right`? | 二分搜索: [704. Binary Search](https://leetcode.com/problems/binary-search/) <br> 盛水最多的容器: [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/) <br> N-Sum 问题: [15. 3Sum](https://leetcode.com/problems/3sum/)、[18. 4Sum](https://leetcode.com/problems/4sum/) | N-Sum 问题注意元素重复问题 |
+| 快慢指针 | | 寻找链表的中间节点: [876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/) <br> 判断链表是否有环: [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) <br> 链表的归并排序: [148. Sort List](https://leetcode.com/problems/sort-list/) | |
+| 滑动窗口 | **判断是否具有单调性质** | 最长无重复子串: [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) <br> 替换后的最长重复字符: [424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) <br> 至多包含两个不同字符的最长子串: [159. Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/) <br> 乘积小于K的子数组: [713. Subarray Product Less Than K](https://leetcode.com/problems/subarray-product-less-than-k/) <br> 最小覆盖子串: [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) | ![Alt text](images/1624701146842.png) <br> ![Alt text](images/1624701161145.png) |
+
+
 ------
 ## :beers: Interesting Problems
 
