@@ -11,25 +11,19 @@ struct TreeNode {
 
 
 class Solution {
-    TreeNode *prev;
-    bool dfs(TreeNode* root) {
+    bool dfs(TreeNode* root, int val) {
         if (root == nullptr) return true;
 
-        if (prev != nullptr) {
-            if (root->val != prev->val)
-                return false;
-        }
+        if (root->val != val) return false;
 
-        prev = root;
+        if (!dfs(root->left, val)) return false;
 
-        if (!dfs(root->left)) return false;
-
-        if (!dfs(root->right)) return false;
+        if (!dfs(root->right, val)) return false;
 
         return true;
     }
 public:
     bool isUnivalTree(TreeNode* root) {
-        return dfs(root);
+        return dfs(root, root->val);
     }
 };
