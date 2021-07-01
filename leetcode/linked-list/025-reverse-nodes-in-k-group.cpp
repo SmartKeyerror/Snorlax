@@ -73,3 +73,63 @@ public:
         return head;
     }
 };
+
+
+/*
+ * 另一个方式就是直接在原链表上进行操作，和栈实现的原理是类似的，需要记录下每一组的起始节点和终止节点
+ * 
+ * 因为 head 可能会发生改变，所以仍然使用 Dummy Head
+ */
+
+class Solution {
+private:
+
+    // 给定一个链表头结点，反转链表
+    ListNode *reverseLinkedList(ListNode *node) {
+        ListNode *prev = nullptr, *current = node, *next = nullptr;
+
+        while (current != nullptr) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
+    }
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+
+        if (k < 2 || head == nullptr) return head;
+
+        ListNode *dummy = new ListNode(0);
+        dummy->next = head;
+
+        ListNode *prev = dummy;
+        ListNode *tail = dummy;
+
+        while (tail->next != nullptr) {
+            for (int i = 0; i < k && tail != nullptr; i++) 
+                tail = tail->next;
+            
+            if (tail == nullptr) break;
+
+            ListNode *next = tail->next;
+            ListNode *start = prev->next;
+
+            // 断开原链表连接
+            tail->next = nullptr;
+
+            // 反转
+            prev->next = reverseLinkedList(start);
+
+            // 连接
+            start->next = next;
+            prev = start;
+
+            tail = prev;
+        }
+
+        return dummy->next;
+    }
+};
