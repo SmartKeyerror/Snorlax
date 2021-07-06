@@ -45,3 +45,69 @@ public:
         return res;
     }
 };
+
+
+
+
+
+/*
+                 +--+
+                 |  |
+              +--+  |
+              |  |  |
+           +--+  |  +--+
+           |  |  |  |  |
+        +--+  |  |  |  +--+
+        |  |  |  |  |  |  |
+     +--+  |  |  |  |  |  |
+     |  |  |  |  |  |  |  |
+     |  |  |  |  |  |  |  |
++----+--+--+--+--+--+--+--+------->
+       0  1  2  3  4  5  6
+
+ * 对于柱子 0 来说，完全包含柱子 0 的矩形为 0-6，那么完整包含柱子 1 的最大矩形就是 (6 - 0 + 1) * hight(柱子 0)
+ * 
+ * 对于柱子 1 来说，完全包含柱子 1 的矩形为 1-6，那么完整包含柱子 2 的最大矩形就是 (6 - 1 + 1) * hight(柱子 1)
+ * 
+ * 对于柱子 2 来说，完全包含柱子 2 的矩形为 2-5，那么完整包含柱子 3 的最大矩形就是 (5 - 2 + 1) * hight(柱子 2)
+ * 
+ * 对于柱子 3 来说，完全包含柱子 3 的矩形为 3-4，那么完整包含柱子 4 的最大矩形就是 (4 - 3 + 1) * hight(柱子 3)
+ * 
+ * 所有，对于每一根柱子来说，我们更关心它左边儿更短的柱子，和右边更短的柱子，这样我们才能知道每一根柱子能够扩展到哪里去
+ */
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int result = 0, n = heights.size();
+
+        stack<int> st;
+
+        for (int i = 0; i < heights.size(); i++) {
+
+            // 此时不满足严格单调递减的性质
+            while (!st.empty() && heights[i] <= heights[st.top()]) {
+                int top = st.top();
+                st.pop();
+                int prev = st.empty() ? -1 : st.top();
+
+                // 计算以 top 为中心的最大矩形
+                int current = (i - prev - 1) * heights[top];
+
+                result = max(result, current);
+            }
+            st.push(i);
+        }
+
+        while (!st.empty()) {
+            int top = st.top();
+            st.pop();
+            int prev = st.empty() ? -1 : st.top();
+
+            // 计算以 top 为中心的最大矩形
+            int current = (n - prev - 1) * heights[top];
+
+            result = max(result, current);
+        }
+        return result;
+    }
+};
