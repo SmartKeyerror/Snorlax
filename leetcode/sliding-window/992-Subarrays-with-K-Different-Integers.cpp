@@ -5,33 +5,73 @@
 using namespace std;
 
 /*
- * 滑动窗口问题，需要求子数组中 different integers 的数量正好等于 k 的所有子数组数量。
+ * 给定一个正整数数组 A，如果 A 的某个子数组中不同整数的个数恰好为 K，则称 A 的这个连续、不一定不同的子数组为好子数组。
  * 
- * 其实就是让我们求数组 A 中符合的全部子数组，而不是最长的那个子数组，区分这两者非常关键，因为这直接决定着我们的滑动窗口到底该如何进行滑动的问题。
+ * （例如，[1,2,3,1,2] 中有 3 个不同的整数：1，2，以及 3。）
  * 
- * 这里进行一个简单的思维转换，求 “恰好 K 个” 其实是比较困难的，如果我们把题目换成求至多 K 个的话，窗口的计算就比较简单了。
+ * 返回 A 中好子数组的数目。
  * 
- * 例如假设我们的窗口是这样的: [1, 2, 3]，在这个窗口下面，different integers 的数量至多为 K 的子数组是多少?
+ * 输入：A = [1,2,1,2,3], K = 2
+ * 输出：7
+ * 解释：恰好由 2 个不同整数组成的子数组：[1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2].
+ * 
+ * 该问题和 "给定一个正数数组A[]，以及一个正整数 k，求乘积小于 k 的子数组的个数" 非常之类似，只不过这里求的是区间内不同元素的数量。
+ * 
+ * 如果我们使用单一的双指针策略来解决的话，以 [1,2,1,2,3] 取最长区间为例:
+ * 
+ * [1,2,1,2,3]
+ *  ↑       ↑
+ * left    right
+ * 
+ * 若 k = 2，那么当我们的 right 指针到达最后一个元素时，窗口不满足条件了，
+ * 
+ * 按照滑动窗口的“套路”来说，我们需要收缩窗口，也就是让 left++，直到窗口重新满足条件。
+ * 
+ * 最终，left 指针会指向 right 指针的前一个元素，得到了另一个满足条件的窗口。这是求满足条件最长区间的策略，无法求出满足条件的所有区间。
+ * 
+ * 而对于 713. 乘积小于K的子数组 这道题来说，以 [1,2,1,2,3], k = 2 为例，首先我们找到最长的满足条件的区间，也就是:
+ * 
+ * [1,2,1,2,3]
+ *  ↑   ↑
+ * left right
+ * 
+ * 此时最长区间为 [1, 2, 1]，以 right 为右边界，满足题意的区间个数为:
+ * 
+ * - [1, 2, 1]
+ * -    [2, 1]
+ * -       [1]
+ * 
+ * 这不就是 right - left + 1 吗?
+ * 
+ * 而这道好数组的解题关键就在于: 恰好由 K 个不同整数的子数组的个数 = 最多由 K 个不同整数的子数组的个数 - 最多由 K - 1 个不同整数的子数组的个数
  */
+
 class Solution {
-public:
-    int countDistinct(vector<int>& A, int K) {
-        int n = A.size(), result = 0, left = 0, right = 0;
+private:
+    int subarraysWithMostKDistinct(vector<int>& nums, int k) {
+        int result = 0;
+        int left = 0;
+
         unordered_map<int, int> window;
 
-        while (right < n) {
-            window[A[right]] ++;;
-            while (left <= right && window.size() > K) {
-                window[A[left]] --;
-                if (window[A[left]] == 0) window.erase(A[left]);
+        for (int right = 0; right < nums.size(); right++) {
+            // 将当前值纳入窗口
+            window[nums[right]] ++;
+
+            // 窗口不满足条件时收缩窗口
+            while (window.size() > k) {
+                window[nums[left]] --;
+                if (window[nums[left]] == 0)
+                    window.erase(nums[left]);
                 left ++;
             }
+
             result += right - left + 1;
-            right ++;
         }
         return result;
     }
-    int subarraysWithKDistinct(vector<int>& A, int K) {
-        return countDistinct(A, K) - countDistinct(A, K - 1);
+public:
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        return subarraysWithMostKDistinct(nums, k) - subarraysWithMostKDistinct(nums, k-1);
     }
 };
