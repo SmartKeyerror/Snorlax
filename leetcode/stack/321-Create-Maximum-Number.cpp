@@ -28,6 +28,8 @@ using namespace std;
  * nums2 中可以取 2 个数，取 1 个数，取 0 个数 : [9, 8], [9], []
  *
  * 然后我们再用类似于归并排序的方式对其进行归并即可，注意这里的归并必须使用完成的数组进行比较。
+ * 
+ * 归并的过程非常类似于 1754. Largest Merge Of Two Strings (https://leetcode.com/problems/largest-merge-of-two-strings/)，和归并排序的归并过程还是有比较大的区别的。
  */
 
 class Solution {
