@@ -59,7 +59,7 @@ private:
         return st;
     }
 
-    // 合并两个序列
+    // 合并两个序列，时间复杂度为 O(n^2)
     vector<int> merge(vector<int>& A, vector<int>& B) {
         vector<int> result;
 
@@ -75,6 +75,7 @@ private:
         return result;
     }
 public:
+    // 时间复杂度为 O(n^3)，空间复杂度为 O(k)
     vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) {
 
         vector<int> result(k, 0);
