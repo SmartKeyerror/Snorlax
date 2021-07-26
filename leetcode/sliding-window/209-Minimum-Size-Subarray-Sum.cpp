@@ -16,23 +16,23 @@ using namespace std;
  */
 class Solution {
 public:
+    // 时间复杂度: O(n)，空间复杂度: O(1)
     int minSubArrayLen(int s, vector<int>& nums) {
         if (nums.size() == 0) return 0;
         
-        // 起始时 sum 应该为0，那么该窗口应该不包含任何元素，所以 right 应为 -1
-        int sum = 0, left = 0; int right = -1;
+        int left = 0, sum = 0, result = INT_MAX;
 
-        // 求最短路径，所以使用 INT_MAX 作为 res 的初始值
-        int res = INT_MAX;
+        for (int right = 0; right < nums.size(); right++) {
 
-        while ( left <= nums.size() - 1) {
-            if (right + 1 < nums.size() && sum < s)
-                sum += nums[++right];
-            else
-                sum -= nums[left++];
+            sum += nums[right];
 
-            if (sum >= s) res = min(res, right - left + 1);
+            // 当窗口满足条件时 left 指针需要主动的移动，以得到更小的窗口
+            while (left < nums.size() && sum >= s) {
+                result = min(result, right - left + 1);
+                sum -= nums[left];
+                left++;
+            }
         }
-        return res == INT_MAX ? 0: res;
+        return result == INT_MAX ? 0 : result;
     }
 };

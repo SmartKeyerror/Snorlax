@@ -6,27 +6,27 @@
 
 using namespace std;
 
+// 时空复杂度均为 O(n)
 class Solution {
 public:
 	int lengthOfLongestSubstring(string s) {
 		if (s.size() == 0) return 0;
 
-		unordered_set<char> visited;
+        int left = 0;
+        int result = 0;
+        unordered_set<char> window;
 
-		int result = 0;
-		int left = 0, right = -1;
+        for (int right = 0; right < s.size(); right++) {
+            // 当窗口不满足条件时，不断地收缩左侧边界
+            while (left < s.size() && window.count(s[right])) {
+                window.erase(s[left]);
+                left ++;
+            }
+			// 此时将 s[right] 纳入窗口后必将满足条件
+            window.insert(s[right]);
+            result = max(result, right - left + 1);
+        }
 
-		while (left <= s.size() - 1) {
-			if (right + 1 < s.size() && visited.count(s[right + 1]) == 0) {
-				right ++;
-				visited.insert(s[right]);
-			}
-			else {
-				visited.erase(s[left]);
-				left ++;
-			}
-			result = max(result, right - left + 1);
-		}
-		return result;
+        return result;
 	}
 };
