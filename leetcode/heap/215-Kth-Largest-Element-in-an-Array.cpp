@@ -81,9 +81,14 @@ private:
         
     }
 
-    // 最后，我们可以借助两路快排的方式来完成
-    // Runtime: 16 ms, faster than 81.83% of C++ online submissions for Kth Largest Element in an Array.
-    // Memory Usage: 10.3 MB, less than 88.36% of C++ online submissions for Kth Largest Element in an Array.
+    /*
+     * 最后，我们可以借助两路快排的方式来完成。
+     * 
+     * 时间复杂度: O(n)，假如我们每次 partition 的时候都会丢掉一半的元素，那么第一次遍历 n 个元素，第二次遍历 n/2 个元素，
+     * 第三次遍历 n/4 个元素，因此加起来就是 n + n/2 + n/4 + n/8 + .... 1，结果为 2n - 1，也就是 O(n)。
+     * 
+     * 空间复杂度: O(logn)，只有在发生递归的函数调用时才会开辟新的栈，同样地，每次扔掉一半元素的话，总调用次数 logn。
+     */
     int findKthLargestUsePartition(vector<int>& nums, int k) {
         srand(time(NULL));
         return __selection(nums, 0, nums.size() - 1, k);
