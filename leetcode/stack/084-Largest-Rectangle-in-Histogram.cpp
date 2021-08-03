@@ -84,7 +84,8 @@ public:
 
         for (int i = 0; i < heights.size(); i++) {
 
-            // 此时不满足严格单调递减的性质
+            // 此时不满足严格单调递减的性质，当 heights[i] 和 heights[st.top()] 相等时也需要弹栈
+            // 这并不会导致我们少算一些柱子，以 heights[i] 为最高点的矩形后面也会计算到
             while (!st.empty() && heights[i] <= heights[st.top()]) {
                 int top = st.top();
                 st.pop();
