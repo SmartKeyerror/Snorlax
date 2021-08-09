@@ -3,50 +3,42 @@
 
 using namespace std;
 
-/*
- * 在一个被 rotate 的有序列表中查找某一个元素，例如原有有序列表为: [0,1,2,4,5,6,7], rotate 之后结果为 [4,5,6,7,0,1,2]
- * 
- * 一个比较简单的作法就是先找到 pivot 的位置，判断 nums[pivot] 和 target 之间的大小关系:
- * - 若 target > nums[pivot]，问题无解
- * - 若 target < nums[pivot], 那么我们此时需要在列表的左、右两侧分别进行二分查找
- *   即对 nums[0...pivot-1] 以及 nums[piovt+1...nums.szie()-1] 进行二分查找
- * 
- * 另外的方式就是直接进行二分查找
- */
+
 class Solution {
-private:
-    int binarySearch(vector<int>& nums, int left, int right, int &target) {
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] == target) return mid;
-            else if (nums[mid] > target) right = mid - 1;
-            else left = mid + 1;
-        }
-        return -1;
-    }
-
-    int intuitiveSolution(vector<int>& nums, int target) {
-        // 题目告诉我们了 piovt 一定存在，所以就不用对 piovt 进行判断了。
-        int piovt;
-        
-        for (int i = 0; i < nums.size() - 1; i++) {
-            if (nums[i+1] < nums[i]) {
-                piovt = i;
-                break;
-            }
-        }
-
-        if (nums[piovt] == target) return piovt;
-        int left = binarySearch(nums, 0, piovt - 1, target);
-        int right = binarySearch(nums, piovt + 1, nums.size() - 1 , target);
-
-        if (left < 0 && right < 0) return -1;
-        return left > right ? left: right;
-    }
-
 public:
     int search(vector<int>& nums, int target) {
-        // O(n)
-        return intuitiveSolution(nums, target);
+
+        int n = nums.size();
+
+        int left = 0, right = n - 1;
+        int mid;
+
+        while (left <= right) {
+        
+            mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) return mid;
+
+            // 此时 [left, mid] 是有序的，比如说 [3, 4, 5, 6, 1, 2, 3]
+            if (nums[mid] >= nums[left]) {
+                // 此时讨论 target 就在 [left, mid] 一有序的区间内
+                if (target >= nums[left] && target < nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            } 
+            // 此时说明 [mid, right] 是有序的，比如说 [5, 6, 1, 2, 3, 4]
+            else {
+                // 此时讨论 target 就在 [mid, right] 这一有序的区间内
+                if (target > nums[mid] && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+        return -1;
+
     }
 };
