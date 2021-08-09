@@ -11,11 +11,16 @@ using namespace std;
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int minPrice = INT_MAX, bestProfit = 0;
+        int min_price = INT_MAX, profit = 0;
+
+        // 对于当前的 prices[i] 来说，能够获得的最大收益就是前面的最小买入价格，并在当前卖出
         for (int i = 0; i < prices.size(); i++) {
-            minPrice = min(minPrice, prices[i]);
-            bestProfit = max(bestProfit, prices[i] - minPrice);
+            if (prices[i] < min_price) {
+                min_price = prices[i];
+            } else {
+                profit = max(profit, prices[i] - min_price);
+            }
         }
-        return bestProfit;
+        return profit;
     }
 };
