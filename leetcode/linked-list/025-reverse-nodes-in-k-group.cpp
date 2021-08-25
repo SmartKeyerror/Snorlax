@@ -133,3 +133,68 @@ public:
         return dummy->next;
     }
 };
+
+
+// 变种问题，不足 K 个也要反转
+class Solution {
+private:
+    // 给定一个链表头结点，反转链表
+    ListNode *reverseLinkedList(ListNode *node) {
+        ListNode *prev = nullptr, *current = node, *next = nullptr;
+        while (current != nullptr) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+
+        if (k < 2 || head == nullptr) return head;
+
+        ListNode *dummy = new ListNode(0);
+        dummy->next = head;
+
+        ListNode *prev= dummy, *tail = head;
+
+        bool remained;
+
+        while (tail != nullptr) {
+            for (int i = 0; i < k - 1 && tail != nullptr; i++) {
+                tail = tail->next;
+            }
+
+            if (tail == nullptr) {
+                remained = true;
+                break;
+            }
+
+            ListNode *next = tail->next;
+
+            // 断开原有连接
+            tail->next = nullptr;
+
+            // reverse
+            ListNode *start = prev->next;
+            reverseLinkedList(start);
+
+            // 重新连接
+            prev->next = tail;
+            start->next = next;
+
+            prev = start;
+            tail = next;
+        }
+
+        if (prev->next != nullptr && remained) {
+            prev->next = reverseLinkedList(prev->next);
+        }
+
+        ListNode *newHead = dummy->next;
+        delete dummy;
+
+        return newHead;
+    }
+};
