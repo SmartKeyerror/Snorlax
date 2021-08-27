@@ -77,16 +77,6 @@
 
 - [单链表 A、B 可能有环，也可能无环。这两个链表可能相交，也可能不相交，若相交请返回相交节点，否则返回 null。额外空间复杂度请达到 O(1)](#intersection-of-two-linked-list)
 
-<!-- ## :toolbox: Data Structure
-
-- [并查集: 没人比我更懂连通性](https://github.com/SmartKeyerror/Snorlax/tree/master/src/union-find)
-- [递归: 面试叫我小甜甜，生产叫我小垃圾?](https://github.com/SmartKeyerror/Snorlax/tree/master/src/recursive)
-- [堆: 堆排序、TopK、计算百分位数，我的能量超乎你想象](https://github.com/SmartKeyerror/Snorlax/tree/master/src/heap)
-- [环形队列: 我吃我自己](https://github.com/SmartKeyerror/Snorlax/tree/master/src/circular-buffer)
-- [二分搜索树: 简简单单，描述二叉树所有的性质](https://github.com/SmartKeyerror/Snorlax/tree/master/src/search-tree)
-- [栈: C泛型栈如何实现?](https://github.com/SmartKeyerror/Snorlax/tree/master/src/stack)
-- [哈希表: 感受数组的魅力](https://github.com/SmartKeyerror/Snorlax/tree/master/src/hash-table) -->
-
 
 #### intersection-of-two-linked-list
 
