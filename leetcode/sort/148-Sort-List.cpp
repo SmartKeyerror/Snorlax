@@ -11,11 +11,6 @@ struct ListNode {
 /*
  * 平均时间复杂度为 O(nlogn) 的算法没几个，快速排序、归并排序，堆排序勉强算是一个 O(nlogn) 的排序算法，但是它需要开辟额外的空间，以及速度比前两者都要差一些
  * 这里使用归并排序解决，快排理论上来说也能够解决，只不过受限于链表的特性，只能两路快排
- * 
- * Runtime: 148 ms, faster than 14.87% of C++ online submissions for Sort List.
- * Memory Usage: 50.3 MB, less than 5.99% of C++ online submissions for Sort List.
- * 
- * 这不科学(哦不，这不神秘学)，我严重怀疑有“禽兽”开了额外的数组来实现
  */
 class Solution {
 
