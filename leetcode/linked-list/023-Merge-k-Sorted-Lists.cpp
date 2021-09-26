@@ -25,6 +25,10 @@ struct ListNode {
  * 或者，使用堆结构，将链表元素逐一地 push 进一个最小堆，然后不断地进行 pop 操作，在维护链表连接性质的时候，我们只需要记录上一个 pop 出来的节点即可。
  * 
  * 总之，这些方案都能够得到结果，只是时间效率和实现难度有所不同而已，最简单的实现当然是使用堆实现。
+ * 
+ * Solution: 
+ * 1. 将 vector<ListNode*> 中的所有 Node 一次性地压入到最小堆中，然后再逐一从中取出，时间复杂度 O(K * NlogN)，空间复杂度 O(KN)
+ * 2. 另一种方式就是只使用大小为 K 的最小堆。初始化时将所有链表的 head 压入，然后 pop 出最小的那个最为新的 head。紧接着，将 poped->next 压入堆中
  */
 
 
@@ -35,51 +39,42 @@ struct heapCompare {
 };
 
 class Solution {
-
 private:
-
-    static bool compare(ListNode *p, ListNode *q) {
-        return p->val > q->val;
-    }
-    
     ListNode* mergeKListsUseHeap(vector<ListNode*> &lists) {
         if (lists.size() == 0)
             return nullptr;
         
         priority_queue<ListNode *, vector<ListNode *>, heapCompare> heap;
 
-        for (int i = 0; i < lists.size(); i++) {
-            ListNode *head = lists[i];
-            while (head) {
-                heap.push(head);
-                head = head->next;
-            }
-        }
-
         ListNode *dummy = new ListNode(0);
         ListNode *prev = dummy, *current;
+
+        for (const auto head : lists) {
+            if (head != nullptr) {
+                heap.push(head);
+            }
+        }
 
         while (!heap.empty()) {
             current = heap.top();
             heap.pop();
+
             prev->next = current;
             prev = current;
+
+            if (current->next != nullptr) {
+                heap.push(current->next);
+            }
         }
 
-        // 一个小坑，断开最后一个节点与原来节点的连接，否则会出现循环链表
-        current->next = nullptr;
-
-        ListNode *head = dummy->next;
+        ListNode *result = dummy->next;
         delete dummy;
         
-        return head;
+        return result;
     }
 
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-
-        // 堆解决方案
-        // Runtime: 36 ms, faster than 65.47% of C++ online submissions for Merge k Sorted Lists.
         return mergeKListsUseHeap(lists);
     }
 };
